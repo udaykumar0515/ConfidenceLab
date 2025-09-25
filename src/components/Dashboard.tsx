@@ -87,16 +87,16 @@ function Dashboard({ user, onLogout }: DashboardProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-slate-50 to-emerald-50 p-6">
       <div className="max-w-6xl mx-auto">
         <div className="bg-white/80 backdrop-blur-lg rounded-xl shadow-lg p-8 mb-8 transform hover:scale-105 transition-all duration-300">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
-                  <span className="text-2xl text-white font-bold">{user.name[0].toUpperCase()}</span>
+          <div className="flex items-center gap-4">
+            <div className="relative">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 flex items-center justify-center">
+                <span className="text-2xl text-white font-bold">{user.name[0].toUpperCase()}</span>
                 </div>
-                <Sparkles className="absolute -right-2 -top-2 w-6 h-6 text-yellow-400 animate-spin" />
+                <Sparkles className="absolute -right-2 -top-2 w-6 h-6 text-emerald-500 animate-spin" />
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}! 👋</h1>
@@ -106,7 +106,7 @@ function Dashboard({ user, onLogout }: DashboardProps) {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowSessions(true)}
-                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors duration-200"
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200"
               >
                 <History className="w-5 h-5" />
                 View Sessions
@@ -161,7 +161,7 @@ function Dashboard({ user, onLogout }: DashboardProps) {
         </div>
 
         <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-          <Brain className="w-8 h-8 text-indigo-600" />
+          <Brain className="w-8 h-8 text-blue-600" />
           Choose Your Interview Path
         </h2>
         
@@ -188,7 +188,7 @@ function Dashboard({ user, onLogout }: DashboardProps) {
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{topic.name}</h3>
                 <p className="text-gray-600">{topic.description}</p>
                 
-                <div className="mt-4 flex items-center text-indigo-600 font-medium">
+                <div className="mt-4 flex items-center text-blue-600 font-medium">
                   Start Practice
                   <Video className="w-4 h-4 ml-2 animate-pulse" />
                 </div>

@@ -252,7 +252,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
             <div className="flex-1 p-6 overflow-y-auto">
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded">
+                  <span className="text-sm font-medium text-emerald-600 bg-emerald-100 px-2 py-1 rounded">
                     {currentQuestion.category}
                   </span>
                   <span className={`text-xs px-2 py-1 rounded ${
@@ -275,7 +275,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
                   <div className="flex gap-2 ml-4 flex-shrink-0">
                     <button
                       onClick={() => setShowQuestionList(!showQuestionList)}
-                      className="p-2 text-green-600 hover:bg-green-100 rounded-full transition-colors"
+                      className="p-2 text-emerald-600 hover:bg-emerald-100 rounded-full transition-colors"
                       title="Select question"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,7 +284,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
                     </button>
                     <button
                       onClick={getNewQuestion}
-                      className="p-2 text-green-600 hover:bg-green-100 rounded-full transition-colors"
+                      className="p-2 text-emerald-600 hover:bg-emerald-100 rounded-full transition-colors"
                       title="Get random question"
                     >
                       <RotateCcw className="w-5 h-5" />
@@ -304,7 +304,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
                         onClick={() => selectQuestion(question)}
                         className={`w-full text-left p-3 rounded-lg border transition-colors ${
                           currentQuestion?.text === question.text
-                            ? 'bg-green-100 border-green-300 text-green-900'
+                            ? 'bg-emerald-100 border-emerald-300 text-emerald-900'
                             : 'bg-white border-gray-200 hover:bg-gray-50 text-gray-700'
                         }`}
                       >
@@ -334,7 +334,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
               </button>
               
               {showTips && currentQuestion.tips && (
-                <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
                   <h4 className="font-medium text-gray-900 mb-3">Answering Tips:</h4>
                   <ul className="space-y-2 text-sm text-gray-700">
                     {currentQuestion.tips.map((tip, index) => (
@@ -412,7 +412,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
                 className={`px-6 py-3 rounded-lg flex items-center gap-2 transition-all ${
                   isRecording
                     ? 'bg-red-500 hover:bg-red-600 text-white'
-                    : 'bg-green-600 hover:bg-green-700 text-white'
+                    : 'bg-emerald-600 hover:bg-emerald-700 text-white'
                 } ${isAnalyzing ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {isRecording ? (
@@ -477,7 +477,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
                 <a
                   href={videoURL}
                   download="behavioral_interview.webm"
-                  className="block w-full text-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  className="block w-full text-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                 >
                   Download Video
                 </a>
@@ -497,7 +497,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
                   <div>
                     <button
                       onClick={() => setShowDetailedAnalysis(!showDetailedAnalysis)}
-                      className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors mb-4"
+                      className="w-full px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors mb-4"
                     >
                       {showDetailedAnalysis ? 'Hide' : 'View'} Detailed Analysis
                     </button>
@@ -520,9 +520,9 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
                           </div>
                         </div>
                         
-                        <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-green-600">{analysisResult.body_confidence}%</div>
+                            <div className="text-2xl font-bold text-emerald-600">{analysisResult.body_confidence}%</div>
                             <div className="text-sm text-gray-600">Body Confidence</div>
                             <div className="text-xs text-gray-500 mt-1">Posture, gestures, openness</div>
                           </div>

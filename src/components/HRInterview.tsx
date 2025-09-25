@@ -373,7 +373,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
               className={`px-6 py-3 rounded-lg flex items-center gap-2 transition-all ${
                 isRecording
                   ? 'bg-red-500 hover:bg-red-600 text-white'
-                  : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                  : 'bg-blue-600 hover:bg-blue-700 text-white'
               } ${isAnalyzing ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {isRecording ? (
@@ -448,7 +448,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
                 <div className="mb-4">
                   <button
                     onClick={() => setShowDetailedAnalysis(!showDetailedAnalysis)}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     {showDetailedAnalysis ? 'Hide' : 'View'} Full Analysis
                   </button>

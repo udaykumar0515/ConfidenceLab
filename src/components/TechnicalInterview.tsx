@@ -252,7 +252,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
             <div className="flex-1 p-6 overflow-y-auto">
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-sm font-medium text-purple-600 bg-purple-100 px-2 py-1 rounded">
+                  <span className="text-sm font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded">
                     {currentQuestion.category}
                   </span>
                   <span className={`text-xs px-2 py-1 rounded ${
@@ -275,7 +275,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                   <div className="flex gap-2 ml-4 flex-shrink-0">
                     <button
                       onClick={() => setShowQuestionList(!showQuestionList)}
-                      className="p-2 text-purple-600 hover:bg-purple-100 rounded-full transition-colors"
+                      className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition-colors"
                       title="Select question"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,7 +284,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                     </button>
                     <button
                       onClick={getNewQuestion}
-                      className="p-2 text-purple-600 hover:bg-purple-100 rounded-full transition-colors"
+                      className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition-colors"
                       title="Get random question"
                     >
                       <RotateCcw className="w-5 h-5" />
@@ -304,7 +304,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                         onClick={() => selectQuestion(question)}
                         className={`w-full text-left p-3 rounded-lg border transition-colors ${
                           currentQuestion?.text === question.text
-                            ? 'bg-purple-100 border-purple-300 text-purple-900'
+                            ? 'bg-blue-100 border-blue-300 text-blue-900'
                             : 'bg-white border-gray-200 hover:bg-gray-50 text-gray-700'
                         }`}
                       >
@@ -334,7 +334,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
               </button>
               
               {showTips && currentQuestion.tips && (
-                <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
                   <h4 className="font-medium text-gray-900 mb-3">Answering Tips:</h4>
                   <ul className="space-y-2 text-sm text-gray-700">
                     {currentQuestion.tips.map((tip, index) => (
@@ -412,7 +412,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                 className={`px-6 py-3 rounded-lg flex items-center gap-2 transition-all ${
                   isRecording
                     ? 'bg-red-500 hover:bg-red-600 text-white'
-                    : 'bg-purple-600 hover:bg-purple-700 text-white'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
                 } ${isAnalyzing ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 {isRecording ? (
@@ -497,7 +497,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                   <div>
                     <button
                       onClick={() => setShowDetailedAnalysis(!showDetailedAnalysis)}
-                      className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors mb-4"
+                      className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors mb-4"
                     >
                       {showDetailedAnalysis ? 'Hide' : 'View'} Detailed Analysis
                     </button>
@@ -512,9 +512,9 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                           </div>
                         </div>
                         
-                        <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-purple-600">{analysisResult.speech_confidence}%</div>
+                            <div className="text-2xl font-bold text-blue-600">{analysisResult.speech_confidence}%</div>
                             <div className="text-sm text-gray-600">Speech Confidence</div>
                             <div className="text-xs text-gray-500 mt-1">Clarity, tone, hesitation</div>
                           </div>
