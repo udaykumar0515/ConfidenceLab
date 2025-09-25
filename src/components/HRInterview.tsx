@@ -173,8 +173,6 @@ function HRInterview({ onClose }: HRInterviewProps) {
           videoRef.current.srcObject = null;
           videoRef.current.src = finalURL;
         }
-
-        analyzeVideo(completeBlob);
       };
 
       recorder.start();
@@ -508,55 +506,53 @@ function HRInterview({ onClose }: HRInterviewProps) {
               </div>
             )}
 
-            {/* Score Display */}
+            {/* Score Output */}
             {score !== null && (
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 bg-white rounded-lg shadow-lg px-6 py-4">
-                  <span className="text-2xl">🎯</span>
-                  <div>
-                    <div className="text-3xl font-bold text-gray-900">{score}%</div>
-                    <div className="text-sm text-gray-600">Confidence Score</div>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {analysisResult && (
-              <div className="mb-4">
-                <button
-                  onClick={() => setShowDetailedAnalysis(!showDetailedAnalysis)}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors mb-4"
-                >
-                  {showDetailedAnalysis ? 'Hide' : 'View'} Detailed Analysis
-                </button>
-              </div>
-            )}
-
-            {showDetailedAnalysis && analysisResult && (
               <div className="space-y-4">
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">{analysisResult.facial_confidence}%</div>
-                    <div className="text-sm text-gray-600">Facial Confidence</div>
-                    <div className="text-xs text-gray-500 mt-1">Eye contact, expressions</div>
-                  </div>
+                <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Interview Score</h3>
+                  <div className="text-4xl font-bold text-blue-600 mb-2">{score}%</div>
+                  <p className="text-sm text-gray-600">Overall Confidence</p>
                 </div>
                 
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">{analysisResult.speech_confidence}%</div>
-                    <div className="text-sm text-gray-600">Speech Confidence</div>
-                    <div className="text-xs text-gray-500 mt-1">Clarity, tone, hesitation</div>
+                {analysisResult && (
+                  <div>
+                    <button
+                      onClick={() => setShowDetailedAnalysis(!showDetailedAnalysis)}
+                      className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors mb-4"
+                    >
+                      {showDetailedAnalysis ? 'Hide' : 'View'} Detailed Analysis
+                    </button>
+                    
+                    {showDetailedAnalysis && (
+                      <div className="space-y-4">
+                        <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-blue-600">{analysisResult.facial_confidence}%</div>
+                            <div className="text-sm text-gray-600">Facial Confidence</div>
+                            <div className="text-xs text-gray-500 mt-1">Eye contact, expressions</div>
+                          </div>
+                        </div>
+                        
+                        <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-blue-600">{analysisResult.speech_confidence}%</div>
+                            <div className="text-sm text-gray-600">Speech Confidence</div>
+                            <div className="text-xs text-gray-500 mt-1">Clarity, tone, hesitation</div>
+                          </div>
+                        </div>
+                        
+                        <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-blue-600">{analysisResult.body_confidence}%</div>
+                            <div className="text-sm text-gray-600">Body Confidence</div>
+                            <div className="text-xs text-gray-500 mt-1">Posture, gestures, openness</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-                
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">{analysisResult.body_confidence}%</div>
-                    <div className="text-sm text-gray-600">Body Confidence</div>
-                    <div className="text-xs text-gray-500 mt-1">Posture, gestures, openness</div>
-                  </div>
-                </div>
+                )}
               </div>
             )}
           </div>

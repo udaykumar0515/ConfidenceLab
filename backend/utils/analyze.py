@@ -71,14 +71,14 @@ model_cache = ModelCache()
 
 # Video path validation (only when run as script)
 def validate_video_path():
-    if len(sys.argv) < 2:
-        print(json.dumps({"error": "No video file path provided"}))
-        sys.exit(1)
+if len(sys.argv) < 2:
+    print(json.dumps({"error": "No video file path provided"}))
+    sys.exit(1)
 
-    video_path = sys.argv[1]
-    if not os.path.exists(video_path):
-        print(json.dumps({"error": "Video file not found"}))
-        sys.exit(1)
+video_path = sys.argv[1]
+if not os.path.exists(video_path):
+    print(json.dumps({"error": "Video file not found"}))
+    sys.exit(1)
         return video_path
 
 # Confidence-focused Facial Analysis
