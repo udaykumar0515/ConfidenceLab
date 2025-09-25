@@ -5,17 +5,22 @@ from datetime import datetime
 from typing import Dict, List, Optional
 import uuid
 
-# File paths
-USERS_FILE = "../data/users.json"
-SESSIONS_FILE = "../data/sessions.json"
+# File paths - use absolute paths to avoid confusion
+import os
+# Go up two levels: utils -> backend -> project_root
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+USERS_FILE = os.path.join(BASE_DIR, "data", "users.json")
+SESSIONS_FILE = os.path.join(BASE_DIR, "data", "sessions.json")
 
 def ensure_data_files():
     """Create data files if they don't exist"""
     if not os.path.exists(USERS_FILE):
+        os.makedirs(os.path.dirname(USERS_FILE), exist_ok=True)
         with open(USERS_FILE, 'w') as f:
             json.dump({}, f)
     
     if not os.path.exists(SESSIONS_FILE):
+        os.makedirs(os.path.dirname(SESSIONS_FILE), exist_ok=True)
         with open(SESSIONS_FILE, 'w') as f:
             json.dump({}, f)
 
@@ -122,23 +127,17 @@ def get_user_by_id(user_id: str) -> Optional[Dict]:
 
 def add_session(user_id: str, topic: str, score: float, duration: int) -> Dict:
     """Add a new session for a user"""
-    print(f"add_session called with: user_id={user_id}, topic={topic}, score={score}, duration={duration}")
     users = load_users()
     sessions = load_sessions()
-    
-    print(f"Loaded users: {list(users.keys())}")
-    print(f"Looking for user_id: {user_id}")
     
     # Find user by ID
     user_email = None
     for email, user in users.items():
-        print(f"Checking user: {email} with id: {user.get('id', 'NO_ID')}")
         if user["id"] == user_id:
             user_email = email
             break
     
     if not user_email:
-        print(f"User not found for ID: {user_id}")
         raise ValueError("User not found")
     
     session_id = str(uuid.uuid4())

@@ -38,5 +38,13 @@
     "score": 3.19,
     "duration": 11,
     "timestamp": "2025-09-25T18:55:30.872950"
+  },
+  "4ae8dd09-78b5-4710-b399-bceea2008294": {
+    "id": "4ae8dd09-78b5-4710-b399-bceea2008294",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Test Interview",
+    "score": 85.5,
+    "duration": 120,
+    "timestamp": "2025-09-25T20:28:02.436189"
   }
 }
