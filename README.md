@@ -72,63 +72,34 @@
 - **LeetCode-Style Layout**: Professional, distraction-free interface
 - **Question Selection**: Choose from curated question banks
 - **Responsive Design**: Works seamlessly on desktop and mobile
-- **Dark/Light Themes**: Customizable interface preferences
 
 ---
 
 ## 🖼️ Screenshots
 
-### 🏠 **Dashboard & Authentication**
+### 🏠 **Main Interface**
 
-#### Login Page
+#### Login & Dashboard
 ![Login Page](./screenshots/01-login-page.png)
-*Clean, professional login interface with ConfidenceLab branding and gradient background*
+*Clean login interface with ConfidenceLab branding*
 
-#### Signup Page  
-![Signup Page](./screenshots/02-signup-page.png)
-*User registration with password validation and consistent branding*
+![Main Dashboard](./screenshots/02-main-dashboard.png)
+*User dashboard with statistics and interview options*
 
-#### Main Dashboard
-![Main Dashboard](./screenshots/03-main-dashboard.png)
-*User dashboard showing statistics, interview options, and session history*
+### 🎥 **Interview Practice**
 
-### 🎥 **Interview Practice Interface**
+#### Interview Interface
+![Interview Ready](./screenshots/03-interview-ready.png)
+*LeetCode-style interview interface with question sidebar*
 
-#### HR Interview - Camera Ready
-![HR Interview Ready](./screenshots/04-hr-interview-ready.png)
-*HR interview interface showing "Camera Ready" state with question sidebar*
+![Analysis Results](./screenshots/04-analysis-results.png)
+*Confidence analysis with detailed breakdowns*
 
-#### Technical Interview - Recording
-![Technical Interview Recording](./screenshots/05-technical-interview-recording.png)
-*Technical interview during recording with timer, camera label, and question display*
-
-#### Behavioral Interview - Analysis Results
-![Behavioral Interview Results](./screenshots/06-behavioral-interview-results.png)
-*Behavioral interview showing confidence score and detailed analysis breakdown*
-
-### 📊 **Analysis & Results**
-
-#### Detailed Analysis View
-![Detailed Analysis](./screenshots/07-detailed-analysis.png)
-*Expanded view showing facial, speech, and body confidence metrics*
+### 📊 **Session Management**
 
 #### Session History
-![Session History](./screenshots/08-session-history.png)
-*User's interview session history with scores and timestamps*
-
-#### Session Details
-![Session Details](./screenshots/09-session-details.png)
-*Detailed view of a specific interview session with metrics and question*
-
-### 🎯 **Question Management**
-
-#### Question Selection
-![Question Selection](./screenshots/10-question-selection.png)
-*Dropdown interface for selecting specific interview questions*
-
-#### Tips & Guidance
-![Tips Display](./screenshots/11-tips-display.png)
-*Contextual tips and guidance for interview preparation*
+![Session History](./screenshots/05-session-history.png)
+*User's interview session history and details*
 
 ---
 
@@ -343,7 +314,6 @@ python -m pytest --cov=backend tests/
 - [ ] Video analysis accuracy
 - [ ] Session data persistence
 - [ ] Question loading and selection
-- [ ] Responsive design on different screen sizes
 
 ---
 
@@ -354,15 +324,7 @@ python -m pytest --cov=backend tests/
 - **Model Caching**: Pre-loaded AI models for faster analysis
 - **Parallel Processing**: Concurrent facial, speech, and body analysis
 - **Efficient Video Processing**: Optimized video compression and analysis
-- **Lazy Loading**: On-demand component loading
 - **Memory Management**: Automatic cleanup of video resources
-
-### 📈 **Performance Metrics**
-
-- **Analysis Speed**: ~2-3 seconds for 1-minute video
-- **Memory Usage**: <500MB during analysis
-- **Accuracy**: 85%+ correlation with human evaluators
-- **Uptime**: 99.9% availability
 
 ---
 
@@ -370,38 +332,7 @@ python -m pytest --cov=backend tests/
 
 ### 🌐 **Environment Variables**
 
-Create `.env` file in backend directory:
-
-```env
-# Server Configuration
-HOST=0.0.0.0
-PORT=8000
-DEBUG=True
-
-# Model Configuration
-VOSK_MODEL_PATH=./vosk-model
-DEEPFACE_MODEL_PATH=./models
-
-# Performance Settings
-MAX_VIDEO_SIZE=100MB
-ANALYSIS_TIMEOUT=300
-```
-
-### 🎨 **Frontend Configuration**
-
-Update `vite.config.ts` for custom settings:
-
-```typescript
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 5173,
-    proxy: {
-      '/api': 'http://localhost:8000'
-    }
-  }
-})
-```
+The application runs with default settings. No additional configuration required for basic usage.
 
 ---
 
