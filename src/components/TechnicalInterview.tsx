@@ -11,7 +11,15 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [timer, setTimer] = useState(0);
   const [score, setScore] = useState<number | null>(null);
-  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<{
+    score: number;
+    facial_confidence: number;
+    speech_confidence: number;
+    body_confidence: number;
+    facial_breakdown?: Record<string, number>;
+    speech_breakdown?: Record<string, number>;
+    body_breakdown?: Record<string, number>;
+  } | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [videoURL, setVideoURL] = useState<string | null>(null);
   const [cameraLabel, setCameraLabel] = useState<string | null>(null);
@@ -77,7 +85,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
     };
 
     saveSession();
-  }, [score, analysisResult, currentQuestion]);
+  }, [score, analysisResult, currentQuestion, timer]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -396,7 +404,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm">
                         {Object.entries(analysisResult.facial_breakdown).map(([key, value]) => (
                           <div key={key} className="text-center">
-                            <div className="font-medium text-indigo-600">{value}%</div>
+                            <div className="font-medium text-indigo-600">{value as number}%</div>
                             <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
                           </div>
                         ))}
@@ -410,7 +418,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
                         {Object.entries(analysisResult.speech_breakdown).map(([key, value]) => (
                           <div key={key} className="text-center">
-                            <div className="font-medium text-purple-600">{value}%</div>
+                            <div className="font-medium text-purple-600">{value as number}%</div>
                             <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
                           </div>
                         ))}
@@ -424,7 +432,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
                         {Object.entries(analysisResult.body_breakdown).map(([key, value]) => (
                           <div key={key} className="text-center">
-                            <div className="font-medium text-green-600">{value}%</div>
+                            <div className="font-medium text-green-600">{value as number}%</div>
                             <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
                           </div>
                         ))}
