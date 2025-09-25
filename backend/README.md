@@ -1,6 +1,6 @@
-# Confidence Detection System - Backend
+# ConfidenceAI - Backend
 
-A simple FastAPI backend for analyzing video files to determine confidence levels through facial emotion analysis and speech processing.
+A powerful FastAPI backend for ConfidenceAI, analyzing video files to determine interview confidence levels through advanced facial emotion analysis, speech processing, and body language detection.
 
 ## 🚀 Quick Start
 

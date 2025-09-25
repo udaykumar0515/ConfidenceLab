@@ -100,7 +100,7 @@ function Dashboard({ user, onLogout }: DashboardProps) {
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}! 👋</h1>
-                <p className="text-gray-600">Ready to level up your interview skills?</p>
+                <p className="text-gray-600">Ready to boost your confidence with ConfidenceAI?</p>
               </div>
             </div>
             <div className="flex items-center gap-3">

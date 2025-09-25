@@ -44,14 +44,14 @@ function Login({ onLogin, onSwitchToSignup }: LoginProps) {
       
       <div className="bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-8 w-full max-w-md relative transform hover:scale-105 transition-transform duration-300">
         <div className="flex flex-col items-center mb-8">
-          <div className="relative">
-            <UserCircle2 className="w-20 h-20 text-indigo-600 mb-4 animate-bounce" />
+          <div className="relative mb-4">
+            <img src="/logo.png" alt="ConfidenceAI Logo" className="w-16 h-16 object-contain" />
             <Sparkles className="absolute -right-2 -top-2 w-6 h-6 text-yellow-400 animate-spin" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Student!</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">ConfidenceAI</h1>
           <p className="text-gray-600 mt-2 text-center flex items-center gap-2">
             <BookOpen className="w-5 h-5" />
-            Practice interviews with AI-powered feedback
+            AI-powered interview confidence analysis
           </p>
         </div>
 
