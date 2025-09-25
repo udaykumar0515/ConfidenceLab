@@ -41,21 +41,34 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
 
   const startRecording = async () => {
     try {
-      const requiredDeviceId = "5ac6b7130203048bc0cff30373cc79c46adaf1f4cffaaf44482791dda26fbc28";
-
+      // Get available devices
       const devices = await navigator.mediaDevices.enumerateDevices();
       const videoDevices = devices.filter((device) => device.kind === "videoinput");
 
-      const selectedDevice = videoDevices.find((device) => device.deviceId === requiredDeviceId);
+      // Try to find a user-facing camera first, then fallback to any camera
+      let selectedDevice = videoDevices.find((device) => 
+        device.label.toLowerCase().includes('front') || 
+        device.label.toLowerCase().includes('user') ||
+        device.label.toLowerCase().includes('facing')
+      );
 
-      if (!selectedDevice) {
-        throw new Error("Preferred camera not found. Make sure it's connected and accessible.");
+      // If no user-facing camera found, use the first available camera
+      if (!selectedDevice && videoDevices.length > 0) {
+        selectedDevice = videoDevices[0];
       }
 
-      setCameraLabel(selectedDevice.label || "ACER HD User Facing");
+      if (!selectedDevice) {
+        throw new Error("No camera found. Please make sure a camera is connected and accessible.");
+      }
+
+      setCameraLabel(selectedDevice.label || "Default Camera");
 
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { deviceId: { exact: requiredDeviceId } },
+        video: { 
+          deviceId: selectedDevice.deviceId,
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        },
         audio: true,
       });
 
@@ -90,7 +103,7 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
       if (videoRef.current) videoRef.current.srcObject = stream;
     } catch (err) {
       console.error("🛑 Could not start recording:", err);
-      alert("⚠️ Could not access the specified camera. Please check permissions or device availability.");
+      alert("⚠️ Could not access camera. Please check:\n• Camera permissions are allowed\n• Camera is connected and working\n• No other app is using the camera");
     }
   };
 
