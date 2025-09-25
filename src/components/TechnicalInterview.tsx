@@ -31,6 +31,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
   const [showQuestionList, setShowQuestionList] = useState(false);
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
   const [recordedBlob, setRecordedBlob] = useState<Blob | null>(null);
+  const [sessionSaved, setSessionSaved] = useState(false);
 
   const chunksRef = useRef<Blob[]>([]);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -89,7 +90,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
   // Save session when score is received
   useEffect(() => {
     const saveSession = async () => {
-      if (score !== null && score > 0 && analysisResult && analysisResult.video_duration) {
+      if (score !== null && score > 0 && analysisResult && analysisResult.video_duration && !sessionSaved) {
         const currentUser = getCurrentUser();
         
         if (currentUser) {
@@ -102,6 +103,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
               currentQuestion?.text || "Technical Interview Question",
               analysisResult
             );
+            setSessionSaved(true);
           } catch (error) {
             console.error("Failed to save session:", error);
           }
@@ -110,7 +112,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
     };
 
     saveSession();
-  }, [score, analysisResult, currentQuestion, timer]);
+  }, [score, analysisResult, currentQuestion, sessionSaved]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -459,6 +461,10 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                     setVideoURL(null);
                     setScore(null);
                     setTimer(0);
+                    setRecordedBlob(null);
+                    setAnalysisResult(null);
+                    setShowDetailedAnalysis(false);
+                    setSessionSaved(false);
                   }}
                   className="px-4 py-2 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50"
                 >
