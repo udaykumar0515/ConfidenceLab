@@ -440,5 +440,65 @@
     "score": 75.5,
     "duration": 120,
     "timestamp": "2025-09-25T23:36:11.746375"
+  },
+  "4465a75b-ad36-4be1-8d72-f0e5c592ea3c": {
+    "id": "4465a75b-ad36-4be1-8d72-f0e5c592ea3c",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Test Video Analysis",
+    "score": 65.49,
+    "duration": 30,
+    "timestamp": "2025-09-25T23:47:52.816257",
+    "question": "What are your greatest strengths?",
+    "detailed_metrics": {
+      "score": 65.49,
+      "facial_confidence": 65.44,
+      "speech_confidence": 75.77,
+      "body_confidence": 45.02,
+      "facial_breakdown": {
+        "eye_contact": 88.67,
+        "facial_tension": 75.33,
+        "head_movement": 52.89,
+        "smile_authenticity": 50.0,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 38.16,
+        "clarity_score": 100,
+        "pace_score": 85.1
+      },
+      "body_breakdown": {
+        "posture": 20.0,
+        "hand_gestures": 25.0,
+        "body_openness": 90.0,
+        "shoulder_alignment": 85.15
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 45,
+        "blink_count": 39,
+        "blinks_per_minute": 2340.0
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 39
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.18,
+        "speech_contribution": 30.31,
+        "body_contribution": 9.0
+      },
+      "performance": {
+        "processing_time_seconds": 52.22,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
   }
 }

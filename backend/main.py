@@ -95,8 +95,12 @@ async def get_stats(user_id: str):
 
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
-    # Save uploaded video temporarily
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as tmp:
+    # Get the original file extension
+    original_filename = file.filename or "video"
+    file_extension = os.path.splitext(original_filename)[1] or ".mp4"
+    
+    # Save uploaded video temporarily with original extension
+    with tempfile.NamedTemporaryFile(delete=False, suffix=file_extension) as tmp:
         shutil.copyfileobj(file.file, tmp)
         tmp_path = tmp.name
     
