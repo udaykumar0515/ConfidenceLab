@@ -23,6 +23,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
   } | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [videoURL, setVideoURL] = useState<string | null>(null);
+  const [cameraLabel, setCameraLabel] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [showTips, setShowTips] = useState(false);
@@ -120,6 +121,11 @@ function HRInterview({ onClose }: HRInterviewProps) {
     saveSession();
   }, [score, analysisResult, currentQuestion, timer]);
 
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const startRecording = async () => {
     try {
@@ -143,6 +149,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
         throw new Error("No camera found. Please make sure a camera is connected and accessible.");
       }
 
+      setCameraLabel(selectedDevice.label || "Default Camera");
 
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { 
@@ -399,6 +406,16 @@ function HRInterview({ onClose }: HRInterviewProps) {
                 <span className="text-sm">{Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}</span>
               </div>
             )}
+  
+            {cameraLabel && (
+              <div className="absolute bottom-2 left-2 text-white text-sm bg-black bg-opacity-50 px-2 py-1 rounded">
+                🎥 {cameraLabel}
+              </div>
+            )}
+  
+            <div className="absolute top-2 right-2 text-white text-sm bg-black bg-opacity-50 px-2 py-1 rounded">
+              {formatTime(timer)}
+            </div>
           </div>
 
           {/* Video Controls */}
@@ -525,12 +542,12 @@ function HRInterview({ onClose }: HRInterviewProps) {
                     </button>
                     
                     {showDetailedAnalysis && (
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
                           <div className="text-center">
                             <div className="text-2xl font-bold text-blue-600">{analysisResult.facial_confidence}%</div>
                             <div className="text-sm text-gray-600">Facial Confidence</div>
-                            <div className="text-xs text-gray-500 mt-1">Eye contact, expressions</div>
+                            <div className="text-xs text-gray-500 mt-1">Eye contact, expressions, tension</div>
                           </div>
                         </div>
                         
@@ -542,9 +559,9 @@ function HRInterview({ onClose }: HRInterviewProps) {
                           </div>
                         </div>
                         
-                        <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <div className="p-4 bg-green-50 rounded-lg border border-green-200">
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-blue-600">{analysisResult.body_confidence}%</div>
+                            <div className="text-2xl font-bold text-green-600">{analysisResult.body_confidence}%</div>
                             <div className="text-sm text-gray-600">Body Confidence</div>
                             <div className="text-xs text-gray-500 mt-1">Posture, gestures, openness</div>
                           </div>
