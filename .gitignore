@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+venv_new/
+venv8v/
+ENV/
+env/
+.venv/
+backend/venv/
+backend/venv_new/
+backend/venv8v/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+backend/temp_videos/*
+!backend/temp_videos/.gitkeep
+*.wav
+*.mp4
+*.webm
+
+# ML Models and large files
+*.pkl
+*.h5
+*.model
+vosk-model/
+backend/vosk-model/
+speak/vosk-model/
+
+# Large directories
+progress/
+Documents/
+backend/__pycache__/
+backend/routes/__pycache__/
+backend/utils/__pycache__/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
