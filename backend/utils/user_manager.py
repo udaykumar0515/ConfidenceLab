@@ -120,7 +120,7 @@ def get_user_by_id(user_id: str) -> Optional[Dict]:
     
     return None
 
-def add_session(user_id: str, topic: str, score: int, duration: int) -> Dict:
+def add_session(user_id: str, topic: str, score: float, duration: int) -> Dict:
     """Add a new session for a user"""
     users = load_users()
     sessions = load_sessions()

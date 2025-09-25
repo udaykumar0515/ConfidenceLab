@@ -31,7 +31,7 @@ class UserLogin(BaseModel):
 class SessionCreate(BaseModel):
     user_id: str
     topic: str
-    score: int
+    score: float
     duration: int
 
 # Authentication endpoints
