@@ -987,5 +987,127 @@
         "models_cached": true
       }
     }
+  },
+  "d0852288-8c36-4b6d-8339-1d735c0cd41b": {
+    "id": "d0852288-8c36-4b6d-8339-1d735c0cd41b",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "HR Interview",
+    "score": 39.22,
+    "duration": 19,
+    "timestamp": "2025-09-26T01:34:01.081054",
+    "question": "What are your greatest strengths?",
+    "detailed_metrics": {
+      "score": 39.22,
+      "facial_confidence": 43.5,
+      "speech_confidence": 30,
+      "body_confidence": 49.12,
+      "video_duration": 18.55,
+      "facial_breakdown": {
+        "eye_contact": 14,
+        "facial_tension": 84,
+        "head_movement": 63,
+        "smile_authenticity": 50,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 0,
+        "tone_score": 0,
+        "clarity_score": 100,
+        "pace_score": 50
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 47.5,
+        "body_openness": 90,
+        "shoulder_alignment": 75
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 5,
+        "blink_count": 5,
+        "blinks_per_minute": 300
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 0,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 4
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 17.4,
+        "speech_contribution": 12,
+        "body_contribution": 9.82
+      },
+      "performance": {
+        "processing_time_seconds": 36.82,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
+  },
+  "fa37c731-3cc3-4522-afff-6e25e28284c0": {
+    "id": "fa37c731-3cc3-4522-afff-6e25e28284c0",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Technical Interview",
+    "score": 47.89,
+    "duration": 3,
+    "timestamp": "2025-09-26T01:34:22.065585",
+    "question": "What is the difference between SQL and NoSQL databases?",
+    "detailed_metrics": {
+      "score": 47.89,
+      "facial_confidence": 50,
+      "speech_confidence": 47.41,
+      "body_confidence": 44.62,
+      "video_duration": 3.32,
+      "facial_breakdown": {
+        "eye_contact": 30,
+        "facial_tension": 90,
+        "head_movement": 50,
+        "smile_authenticity": 50,
+        "blink_rate": 20
+      },
+      "speech_breakdown": {
+        "hesitation_score": 0,
+        "tone_score": 58.02,
+        "clarity_score": 100,
+        "pace_score": 50
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 25,
+        "body_openness": 90,
+        "shoulder_alignment": 82.5
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 1,
+        "blink_count": 1,
+        "blinks_per_minute": 60
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 0,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 2
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 20,
+        "speech_contribution": 18.96,
+        "body_contribution": 8.92
+      },
+      "performance": {
+        "processing_time_seconds": 6.83,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
   }
 }

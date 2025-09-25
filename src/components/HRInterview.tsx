@@ -258,37 +258,41 @@ function HRInterview({ onClose }: HRInterviewProps) {
                     {currentQuestion.difficulty}
                   </span>
                   <div className="flex items-center gap-1 text-gray-500">
-                    <Clock className="w-3 h-3" />
-                    <span className="text-xs">2-3 min</span>
+                    <Clock className="w-4 h-4" />
+                    <span className="text-sm">{Math.floor(currentQuestion.expectedTime / 60)}m {currentQuestion.expectedTime % 60}s</span>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-2 mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 flex-1">Question</h3>
-                  <div className="flex gap-1">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900 leading-relaxed">
+                    {currentQuestion.text}
+                  </h3>
+                  <div className="flex gap-2 ml-4 flex-shrink-0">
                     <button
                       onClick={() => setShowQuestionList(!showQuestionList)}
                       className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition-colors"
                       title="Select question"
                     >
-                      <Video className="w-4 h-4" />
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
                     </button>
                     <button
                       onClick={getNewQuestion}
                       className="p-2 text-blue-600 hover:bg-blue-100 rounded-full transition-colors"
                       title="Get random question"
                     >
-                      <RotateCcw className="w-4 h-4" />
+                      <RotateCcw className="w-5 h-5" />
                     </button>
                   </div>
                 </div>
               </div>
 
-              {/* Question List Dropdown */}
-              {showQuestionList && allQuestions.length > 0 && (
-                <div className="mb-4 p-4 bg-gray-50 rounded-lg border">
+              {/* Question Selection Dropdown */}
+              {showQuestionList && (
+                <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-60 overflow-y-auto">
                   <h4 className="font-medium text-gray-900 mb-3">Select Question:</h4>
-                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                  <div className="space-y-2">
                     {allQuestions.map((question, index) => (
                       <button
                         key={index}
@@ -315,10 +319,14 @@ function HRInterview({ onClose }: HRInterviewProps) {
                   </div>
                 </div>
               )}
-
-              <div className="mb-6">
-                <p className="text-gray-800 leading-relaxed">{currentQuestion.text}</p>
-              </div>
+              
+              <button
+                onClick={() => setShowTips(!showTips)}
+                className="flex items-center gap-2 text-blue-600 hover:text-blue-700 text-sm font-medium mb-4"
+              >
+                <Lightbulb className="w-4 h-4" />
+                {showTips ? 'Hide Tips' : 'Show Tips'}
+              </button>
               
               {showTips && currentQuestion.tips && (
                 <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
@@ -326,67 +334,78 @@ function HRInterview({ onClose }: HRInterviewProps) {
                   <ul className="space-y-2 text-sm text-gray-700">
                     {currentQuestion.tips.map((tip, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <Lightbulb className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-blue-500 mt-1">•</span>
                         <span>{tip}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
+
+              {/* HR Interview Tips */}
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h4 className="font-medium text-gray-900 mb-3">General Tips:</h4>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    <span>Maintain professional eye contact</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    <span>Use the STAR method for behavioral questions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    <span>Show enthusiasm for the role</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    <span>Ask thoughtful questions about the company</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           ) : (
             <div className="flex-1 p-6 flex items-center justify-center">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p className="text-gray-500">Loading questions...</p>
+              <div className="text-center text-gray-500">
+                <div className="animate-spin w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full mx-auto mb-4"></div>
+                <p>Loading questions...</p>
               </div>
             </div>
           )}
-
-          {/* Tips Toggle */}
-          <div className="p-4 border-t border-gray-200">
-            <button
-              onClick={() => setShowTips(!showTips)}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-            >
-              <Lightbulb className="w-4 h-4" />
-              {showTips ? 'Hide' : 'Show'} Tips
-            </button>
-          </div>
         </div>
 
-        {/* Right Area - Video & Analysis */}
+        {/* Center - Video Area */}
         <div className="flex-1 flex flex-col">
-          {/* Video Section */}
-          <div className="flex-1 p-6">
-            <div className="bg-gray-900 rounded-lg aspect-video mb-6 relative overflow-hidden">
-              <video
-                ref={videoRef}
-                autoPlay
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-              {!isRecording && !videoURL && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
-                  <div className="text-center text-white">
-                    <Video className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                    <p className="text-lg font-medium">Camera Ready</p>
-                    <p className="text-sm opacity-75">Click record to start your interview</p>
-                  </div>
+          <div className="flex-1 bg-gray-900 relative">
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            />
+            {!isRecording && !videoURL && (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
+                <div className="text-center text-white">
+                  <Video className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                  <p className="text-lg font-medium">Camera Ready</p>
+                  <p className="text-sm opacity-75">Click record to start your interview</p>
                 </div>
-              )}
-              {isRecording && (
-                <div className="absolute top-4 left-4 flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full">
-                  <span className="animate-pulse">●</span>
-                  <span className="text-sm font-medium">Recording</span>
-                  <span className="text-sm">{Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}</span>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
+            {isRecording && (
+              <div className="absolute top-4 left-4 flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full">
+                <span className="animate-pulse">●</span>
+                <span className="text-sm font-medium">Recording</span>
+                <span className="text-sm">{Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}</span>
+              </div>
+            )}
+          </div>
 
-            {/* Controls */}
-            <div className="flex justify-center gap-4 mb-6">
+          {/* Video Controls */}
+          <div className="bg-white border-t border-gray-200 p-4">
+            <div className="flex justify-center gap-4">
               <button
                 onClick={isRecording ? stopRecording : startRecording}
                 disabled={isAnalyzing}
@@ -427,7 +446,54 @@ function HRInterview({ onClose }: HRInterviewProps) {
                   )}
                 </button>
               )}
+
+              {!isRecording && (videoURL || score !== null) && (
+                <button
+                  onClick={() => {
+                    setVideoURL(null);
+                    setScore(null);
+                    setTimer(0);
+                    setRecordedBlob(null);
+                    setAnalysisResult(null);
+                    setShowDetailedAnalysis(false);
+                  }}
+                  className="px-4 py-2 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50"
+                >
+                  Reset Session
+                </button>
+              )}
             </div>
+
+            {/* File Upload */}
+            <div className="mt-4 text-center">
+              <input
+                type="file"
+                accept="video/*"
+                disabled={isAnalyzing}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const url = URL.createObjectURL(file);
+                    setVideoURL(url);
+                    analyzeVideo(file);
+                  }
+                }}
+                className="text-sm text-gray-600"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Right Sidebar - Analysis & Results */}
+        <div className="w-80 bg-white border-l border-gray-200 flex flex-col">
+          <div className="p-6 overflow-y-auto">
+            {/* Analyzing Loader */}
+            {isAnalyzing && (
+              <div className="text-center text-gray-600 py-8 animate-pulse">
+                <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"></div>
+                <p>Analyzing your HR interview performance...</p>
+              </div>
+            )}
 
             {/* Download Link */}
             {!isRecording && videoURL && (
@@ -454,26 +520,21 @@ function HRInterview({ onClose }: HRInterviewProps) {
                 </div>
               </div>
             )}
-          </div>
-
-          {/* Analysis Section */}
-          <div className="border-t border-gray-200 p-6 bg-gray-50">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Analysis Results</h3>
             
             {analysisResult && (
               <div className="mb-4">
                 <button
                   onClick={() => setShowDetailedAnalysis(!showDetailedAnalysis)}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors mb-4"
                 >
-                  {showDetailedAnalysis ? 'Hide' : 'View'} Full Analysis
+                  {showDetailedAnalysis ? 'Hide' : 'View'} Detailed Analysis
                 </button>
               </div>
             )}
 
             {showDetailedAnalysis && analysisResult && (
-              <div className="grid grid-cols-3 gap-4">
-                <div className="p-4 bg-white rounded-lg border border-gray-200">
+              <div className="space-y-4">
+                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-blue-600">{analysisResult.facial_confidence}%</div>
                     <div className="text-sm text-gray-600">Facial Confidence</div>
@@ -481,7 +542,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
                   </div>
                 </div>
                 
-                <div className="p-4 bg-white rounded-lg border border-gray-200">
+                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-blue-600">{analysisResult.speech_confidence}%</div>
                     <div className="text-sm text-gray-600">Speech Confidence</div>
@@ -489,7 +550,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
                   </div>
                 </div>
                 
-                <div className="p-4 bg-white rounded-lg border border-gray-200">
+                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-blue-600">{analysisResult.body_confidence}%</div>
                     <div className="text-sm text-gray-600">Body Confidence</div>
