@@ -4,28 +4,59 @@
     "user_id": "user-001",
     "topic": "HR Interview",
     "question": "Tell me about yourself and why you're interested in this position.",
-    "score": 85,
+    "score": 85.2,
     "duration": 120,
     "timestamp": "2025-09-25T10:30:00.000000",
     "detailed_metrics": {
-      "facial_confidence": 82,
-      "speech_confidence": 88,
-      "body_confidence": 85,
+      "score": 85.2,
+      "facial_confidence": 82.5,
+      "speech_confidence": 88.1,
+      "body_confidence": 85.0,
+      "video_duration": 120.3,
       "facial_breakdown": {
-        "eye_contact": 85,
-        "facial_tension": 80,
-        "smile_authenticity": 82
+        "eye_contact": 85.2,
+        "facial_tension": 80.1,
+        "head_movement": 82.3,
+        "smile_authenticity": 82.4,
+        "blink_rate": 15.2
       },
       "speech_breakdown": {
-        "hesitation_score": 90,
-        "tone_score": 85,
-        "clarity_score": 88,
-        "pace_score": 82
+        "hesitation_score": 90.0,
+        "tone_score": 85.5,
+        "clarity_score": 88.8,
+        "pace_score": 82.1
       },
       "body_breakdown": {
-        "posture": 85,
-        "gestures": 88,
-        "openness": 86
+        "posture": 85.0,
+        "hand_gestures": 88.2,
+        "body_openness": 86.5,
+        "shoulder_alignment": 84.3
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 72,
+        "blink_count": 18,
+        "blinks_per_minute": 9.0
+      },
+      "speech_metrics": {
+        "filler_words": 2,
+        "pauses": 4,
+        "repetitions": 1
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 72
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 33.0,
+        "speech_contribution": 35.2,
+        "body_contribution": 17.0
+      },
+      "performance": {
+        "processing_time_seconds": 45.2,
+        "parallel_processing": true,
+        "models_cached": true
       }
     }
   },
@@ -34,28 +65,59 @@
     "user_id": "user-001",
     "topic": "Technical Interview",
     "question": "Explain the difference between REST and GraphQL APIs.",
-    "score": 78,
+    "score": 78.4,
     "duration": 95,
     "timestamp": "2025-09-25T14:15:00.000000",
     "detailed_metrics": {
-      "facial_confidence": 75,
-      "speech_confidence": 80,
-      "body_confidence": 79,
+      "score": 78.4,
+      "facial_confidence": 75.2,
+      "speech_confidence": 80.8,
+      "body_confidence": 79.2,
+      "video_duration": 95.1,
       "facial_breakdown": {
-        "eye_contact": 78,
-        "facial_tension": 72,
-        "smile_authenticity": 75
+        "eye_contact": 78.5,
+        "facial_tension": 72.1,
+        "head_movement": 75.3,
+        "smile_authenticity": 75.0,
+        "blink_rate": 18.5
       },
       "speech_breakdown": {
-        "hesitation_score": 82,
-        "tone_score": 78,
-        "clarity_score": 80,
-        "pace_score": 80
+        "hesitation_score": 82.0,
+        "tone_score": 78.5,
+        "clarity_score": 80.2,
+        "pace_score": 80.5
       },
       "body_breakdown": {
-        "posture": 80,
-        "gestures": 78,
-        "openness": 79
+        "posture": 80.0,
+        "hand_gestures": 78.5,
+        "body_openness": 79.0,
+        "shoulder_alignment": 79.3
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 57,
+        "blink_count": 17,
+        "blinks_per_minute": 10.7
+      },
+      "speech_metrics": {
+        "filler_words": 3,
+        "pauses": 5,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 57
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 30.1,
+        "speech_contribution": 32.3,
+        "body_contribution": 15.8
+      },
+      "performance": {
+        "processing_time_seconds": 38.7,
+        "parallel_processing": true,
+        "models_cached": true
       }
     }
   },
@@ -64,28 +126,59 @@
     "user_id": "user-001",
     "topic": "Behavioral Interview",
     "question": "Describe a time when you had to work with a difficult team member.",
-    "score": 92,
+    "score": 92.1,
     "duration": 150,
     "timestamp": "2025-09-25T16:45:00.000000",
     "detailed_metrics": {
-      "facial_confidence": 90,
-      "speech_confidence": 94,
-      "body_confidence": 92,
+      "score": 92.1,
+      "facial_confidence": 90.5,
+      "speech_confidence": 94.2,
+      "body_confidence": 92.0,
+      "video_duration": 150.2,
       "facial_breakdown": {
-        "eye_contact": 92,
-        "facial_tension": 88,
-        "smile_authenticity": 90
+        "eye_contact": 92.3,
+        "facial_tension": 88.5,
+        "head_movement": 90.8,
+        "smile_authenticity": 90.4,
+        "blink_rate": 12.8
       },
       "speech_breakdown": {
-        "hesitation_score": 95,
-        "tone_score": 93,
-        "clarity_score": 94,
-        "pace_score": 94
+        "hesitation_score": 95.0,
+        "tone_score": 93.5,
+        "clarity_score": 94.0,
+        "pace_score": 94.1
       },
       "body_breakdown": {
-        "posture": 92,
-        "gestures": 90,
-        "openness": 94
+        "posture": 92.0,
+        "hand_gestures": 90.5,
+        "body_openness": 94.0,
+        "shoulder_alignment": 91.5
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 90,
+        "blink_count": 19,
+        "blinks_per_minute": 7.6
+      },
+      "speech_metrics": {
+        "filler_words": 1,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 90
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 36.2,
+        "speech_contribution": 37.7,
+        "body_contribution": 18.4
+      },
+      "performance": {
+        "processing_time_seconds": 52.8,
+        "parallel_processing": true,
+        "models_cached": true
       }
     }
   },
@@ -94,28 +187,59 @@
     "user_id": "user-001",
     "topic": "HR Interview",
     "question": "What are your strengths and weaknesses?",
-    "score": 88,
+    "score": 88.7,
     "duration": 110,
     "timestamp": "2025-09-26T09:20:00.000000",
     "detailed_metrics": {
-      "facial_confidence": 86,
-      "speech_confidence": 90,
-      "body_confidence": 88,
+      "score": 88.7,
+      "facial_confidence": 86.3,
+      "speech_confidence": 90.5,
+      "body_confidence": 88.2,
+      "video_duration": 110.4,
       "facial_breakdown": {
-        "eye_contact": 88,
-        "facial_tension": 84,
-        "smile_authenticity": 86
+        "eye_contact": 88.0,
+        "facial_tension": 84.5,
+        "head_movement": 86.2,
+        "smile_authenticity": 86.5,
+        "blink_rate": 14.2
       },
       "speech_breakdown": {
-        "hesitation_score": 92,
-        "tone_score": 88,
-        "clarity_score": 90,
-        "pace_score": 90
+        "hesitation_score": 92.0,
+        "tone_score": 88.5,
+        "clarity_score": 90.0,
+        "pace_score": 90.5
       },
       "body_breakdown": {
-        "posture": 88,
-        "gestures": 86,
-        "openness": 90
+        "posture": 88.0,
+        "hand_gestures": 86.5,
+        "body_openness": 90.0,
+        "shoulder_alignment": 88.3
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 66,
+        "blink_count": 15,
+        "blinks_per_minute": 8.2
+      },
+      "speech_metrics": {
+        "filler_words": 2,
+        "pauses": 3,
+        "repetitions": 1
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 66
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 34.5,
+        "speech_contribution": 36.2,
+        "body_contribution": 17.6
+      },
+      "performance": {
+        "processing_time_seconds": 41.3,
+        "parallel_processing": true,
+        "models_cached": true
       }
     }
   },
@@ -124,28 +248,59 @@
     "user_id": "user-001",
     "topic": "Technical Interview",
     "question": "How would you optimize a slow database query?",
-    "score": 73,
+    "score": 73.8,
     "duration": 180,
     "timestamp": "2025-09-26T11:30:00.000000",
     "detailed_metrics": {
-      "facial_confidence": 70,
-      "speech_confidence": 75,
-      "body_confidence": 74,
+      "score": 73.8,
+      "facial_confidence": 70.5,
+      "speech_confidence": 75.2,
+      "body_confidence": 74.1,
+      "video_duration": 180.1,
       "facial_breakdown": {
-        "eye_contact": 72,
-        "facial_tension": 68,
-        "smile_authenticity": 70
+        "eye_contact": 72.0,
+        "facial_tension": 68.5,
+        "head_movement": 71.2,
+        "smile_authenticity": 70.3,
+        "blink_rate": 20.1
       },
       "speech_breakdown": {
-        "hesitation_score": 78,
-        "tone_score": 72,
-        "clarity_score": 75,
-        "pace_score": 75
+        "hesitation_score": 78.0,
+        "tone_score": 72.5,
+        "clarity_score": 75.0,
+        "pace_score": 75.3
       },
       "body_breakdown": {
-        "posture": 74,
-        "gestures": 72,
-        "openness": 76
+        "posture": 74.0,
+        "hand_gestures": 72.5,
+        "body_openness": 76.0,
+        "shoulder_alignment": 73.8
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 108,
+        "blink_count": 36,
+        "blinks_per_minute": 12.0
+      },
+      "speech_metrics": {
+        "filler_words": 5,
+        "pauses": 8,
+        "repetitions": 2
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 108
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 28.2,
+        "speech_contribution": 30.1,
+        "body_contribution": 14.8
+      },
+      "performance": {
+        "processing_time_seconds": 67.4,
+        "parallel_processing": true,
+        "models_cached": true
       }
     }
   },
@@ -154,87 +309,57 @@
     "user_id": "user-001",
     "topic": "Behavioral Interview",
     "question": "Give me an example of a time you failed and what you learned from it.",
-    "score": 90,
+    "score": 90.3,
     "duration": 135,
     "timestamp": "2025-09-26T15:10:00.000000",
     "detailed_metrics": {
-      "facial_confidence": 88,
-      "speech_confidence": 92,
-      "body_confidence": 90,
+      "score": 90.3,
+      "facial_confidence": 88.7,
+      "speech_confidence": 92.1,
+      "body_confidence": 90.0,
+      "video_duration": 135.2,
       "facial_breakdown": {
-        "eye_contact": 90,
-        "facial_tension": 86,
-        "smile_authenticity": 88
+        "eye_contact": 90.0,
+        "facial_tension": 86.5,
+        "head_movement": 89.2,
+        "smile_authenticity": 88.8,
+        "blink_rate": 13.5
       },
       "speech_breakdown": {
-        "hesitation_score": 94,
-        "tone_score": 90,
-        "clarity_score": 92,
-        "pace_score": 92
+        "hesitation_score": 94.0,
+        "tone_score": 90.5,
+        "clarity_score": 92.0,
+        "pace_score": 92.0
       },
       "body_breakdown": {
-        "posture": 90,
-        "gestures": 88,
-        "openness": 92
-      }
-    }
-  },
-  "1b12f57c-2171-4e0d-b454-2a94322b0a81": {
-    "id": "1b12f57c-2171-4e0d-b454-2a94322b0a81",
-    "user_id": "04857672-f68d-4a18-a84a-bd2701641f65",
-    "topic": "HR Interview",
-    "score": 58.68,
-    "duration": 72,
-    "timestamp": "2025-09-26T02:34:58.973077",
-    "question": "How do you prioritize multiple competing deadlines?",
-    "detailed_metrics": {
-      "score": 58.68,
-      "facial_confidence": 65.44,
-      "speech_confidence": 58.75,
-      "body_confidence": 45.02,
-      "video_duration": 72.49,
-      "facial_breakdown": {
-        "eye_contact": 88.67,
-        "facial_tension": 75.33,
-        "head_movement": 52.89,
-        "smile_authenticity": 50,
-        "blink_rate": 0
-      },
-      "speech_breakdown": {
-        "hesitation_score": 91,
-        "tone_score": 38.16,
-        "clarity_score": 100,
-        "pace_score": 0
-      },
-      "body_breakdown": {
-        "posture": 20,
-        "hand_gestures": 25,
-        "body_openness": 90,
-        "shoulder_alignment": 85.15
+        "posture": 90.0,
+        "hand_gestures": 88.5,
+        "body_openness": 92.0,
+        "shoulder_alignment": 89.5
       },
       "facial_metrics": {
-        "total_frames_analyzed": 45,
-        "blink_count": 39,
-        "blinks_per_minute": 2340
+        "total_frames_analyzed": 81,
+        "blink_count": 18,
+        "blinks_per_minute": 8.0
       },
       "speech_metrics": {
-        "filler_words": 0,
-        "pauses": 3,
+        "filler_words": 1,
+        "pauses": 4,
         "repetitions": 0
       },
       "body_metrics": {
-        "total_frames_analyzed": 39
+        "total_frames_analyzed": 81
       },
       "overall_breakdown": {
         "facial_weight": 0.4,
         "speech_weight": 0.4,
         "body_weight": 0.2,
-        "facial_contribution": 26.18,
-        "speech_contribution": 23.5,
-        "body_contribution": 9
+        "facial_contribution": 35.5,
+        "speech_contribution": 36.8,
+        "body_contribution": 18.0
       },
       "performance": {
-        "processing_time_seconds": 78.19,
+        "processing_time_seconds": 48.6,
         "parallel_processing": true,
         "models_cached": true
       }
