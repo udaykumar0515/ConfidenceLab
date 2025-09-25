@@ -11,12 +11,14 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [timer, setTimer] = useState(0);
   const [score, setScore] = useState<number | null>(null);
+  const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [videoURL, setVideoURL] = useState<string | null>(null);
   const [cameraLabel, setCameraLabel] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [showTips, setShowTips] = useState(false);
+  const [showDetailedAnalysis, setShowDetailedAnalysis] = useState(false);
 
   const chunksRef = useRef<Blob[]>([]);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -50,13 +52,20 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
   // Save session when score is received
   useEffect(() => {
     const saveSession = async () => {
-      if (score !== null && score > 0) {
+      if (score !== null && score > 0 && analysisResult) {
         const currentUser = getCurrentUser();
         console.log("Score changed, saving session...", { score, timer, topic: "Behavioral Interview", user: currentUser });
         
         if (currentUser) {
           try {
-            const session = await addSession(currentUser.id, "Behavioral Interview", score, timer);
+            const session = await addSession(
+              currentUser.id, 
+              "Behavioral Interview", 
+              score, 
+              timer,
+              currentQuestion?.text || "Behavioral Interview Question",
+              analysisResult
+            );
             console.log("Session saved successfully:", session);
           } catch (error) {
             console.error("Failed to save session:", error);
@@ -68,7 +77,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
     };
 
     saveSession();
-  }, [score, timer]);
+  }, [score, analysisResult, currentQuestion]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -173,6 +182,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
         throw new Error(data.error);
       }
       setScore(data.score);
+      setAnalysisResult(data);
     } catch (err) {
       console.error("❌ Failed to analyze video:", err);
       alert("❌ Failed to analyze the video. Check backend connection.");
@@ -349,6 +359,81 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
             <div className="bg-gray-50 rounded-lg p-6 text-center border-t mt-6">
               <h3 className="text-xl font-semibold mb-2">Behavioral Interview Score</h3>
               <div className="text-4xl font-bold text-green-600 mb-4">{score}%</div>
+              
+              {analysisResult && (
+                <div className="mb-4">
+                  <button
+                    onClick={() => setShowDetailedAnalysis(!showDetailedAnalysis)}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  >
+                    {showDetailedAnalysis ? 'Hide' : 'View'} Full Analysis
+                  </button>
+                </div>
+              )}
+              
+              {showDetailedAnalysis && analysisResult && (
+                <div className="mt-4 p-4 bg-white rounded-lg border text-left">
+                  <h4 className="font-semibold mb-3">Detailed Analysis Breakdown</h4>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div className="text-center p-3 bg-blue-50 rounded">
+                      <div className="text-lg font-bold text-blue-600">{analysisResult.facial_confidence}%</div>
+                      <div className="text-sm text-gray-600">Facial Confidence</div>
+                    </div>
+                    <div className="text-center p-3 bg-purple-50 rounded">
+                      <div className="text-lg font-bold text-purple-600">{analysisResult.speech_confidence}%</div>
+                      <div className="text-sm text-gray-600">Speech Confidence</div>
+                    </div>
+                    <div className="text-center p-3 bg-green-50 rounded">
+                      <div className="text-lg font-bold text-green-600">{analysisResult.body_confidence}%</div>
+                      <div className="text-sm text-gray-600">Body Confidence</div>
+                    </div>
+                  </div>
+
+                  {analysisResult.facial_breakdown && (
+                    <div className="mb-3">
+                      <h5 className="font-medium text-gray-900 mb-2">Facial Analysis:</h5>
+                      <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm">
+                        {Object.entries(analysisResult.facial_breakdown).map(([key, value]) => (
+                          <div key={key} className="text-center">
+                            <div className="font-medium text-indigo-600">{value}%</div>
+                            <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {analysisResult.speech_breakdown && (
+                    <div className="mb-3">
+                      <h5 className="font-medium text-gray-900 mb-2">Speech Analysis:</h5>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                        {Object.entries(analysisResult.speech_breakdown).map(([key, value]) => (
+                          <div key={key} className="text-center">
+                            <div className="font-medium text-purple-600">{value}%</div>
+                            <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {analysisResult.body_breakdown && (
+                    <div className="mb-3">
+                      <h5 className="font-medium text-gray-900 mb-2">Body Language Analysis:</h5>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                        {Object.entries(analysisResult.body_breakdown).map(([key, value]) => (
+                          <div key={key} className="text-center">
+                            <div className="font-medium text-green-600">{value}%</div>
+                            <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+              
               <div className="text-gray-600">
                 <p className="mb-2">Behavioral Interview Tips:</p>
                 <ul className="text-left max-w-md mx-auto list-disc list-inside text-sm">

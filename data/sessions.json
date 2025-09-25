@@ -290,8 +290,41 @@
     "id": "f9a1bc0e-eb77-4499-a42d-62ca167af792",
     "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
     "topic": "Technical Interview",
+    "question": "Explain the difference between a stack and a queue with examples.",
     "score": 58.8,
     "duration": 0,
-    "timestamp": "2025-09-25T23:10:33.305413"
+    "timestamp": "2025-09-25T23:10:33.305413",
+    "detailed_metrics": {
+      "facial_confidence": 55,
+      "speech_confidence": 62,
+      "body_confidence": 60,
+      "facial_breakdown": {
+        "eye_contact": 50,
+        "facial_tension": 60,
+        "head_movement": 55,
+        "smile_authenticity": 52,
+        "blink_rate": 58
+      },
+      "speech_breakdown": {
+        "hesitation_score": 65,
+        "tone_score": 60,
+        "clarity_score": 62,
+        "pace_score": 61
+      },
+      "body_breakdown": {
+        "posture": 58,
+        "hand_gestures": 62,
+        "body_openness": 60,
+        "shoulder_alignment": 60
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 22.0,
+        "speech_contribution": 24.8,
+        "body_contribution": 12.0
+      }
+    }
   }
 }

@@ -135,80 +135,32 @@ function SessionDetails({ user, onBack }: SessionDetailsProps) {
               </div>
             )}
 
-            {selectedSession.detailed_metrics && (
+                {selectedSession.detailed_metrics && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-gray-900">Detailed Analysis</h2>
+                <h2 className="text-2xl font-bold text-gray-900">Confidence Analysis</h2>
                 
-                {/* Overall Breakdown */}
+                {/* Main Confidence Scores */}
                 <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                     <BarChart3 className="w-5 h-5" />
-                    Overall Performance Breakdown
+                    Confidence Breakdown
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="text-center">
                       <div className="text-2xl font-bold text-indigo-600">{selectedSession.detailed_metrics.facial_confidence}%</div>
                       <div className="text-sm text-gray-600">Facial Confidence</div>
-                      <div className="text-xs text-gray-500">Weight: {(selectedSession.detailed_metrics.overall_breakdown.facial_weight * 100)}%</div>
+                      <div className="text-xs text-gray-500">Eye contact, expressions, tension</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-purple-600">{selectedSession.detailed_metrics.speech_confidence}%</div>
                       <div className="text-sm text-gray-600">Speech Confidence</div>
-                      <div className="text-xs text-gray-500">Weight: {(selectedSession.detailed_metrics.overall_breakdown.speech_weight * 100)}%</div>
+                      <div className="text-xs text-gray-500">Clarity, tone, hesitation</div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-green-600">{selectedSession.detailed_metrics.body_confidence}%</div>
                       <div className="text-sm text-gray-600">Body Confidence</div>
-                      <div className="text-xs text-gray-500">Weight: {(selectedSession.detailed_metrics.overall_breakdown.body_weight * 100)}%</div>
+                      <div className="text-xs text-gray-500">Posture, gestures, openness</div>
                     </div>
-                  </div>
-                </div>
-
-                {/* Facial Analysis */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                    <Eye className="w-5 h-5 text-indigo-600" />
-                    Facial Analysis
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                    {Object.entries(selectedSession.detailed_metrics.facial_breakdown).map(([key, value]) => (
-                      <div key={key} className="text-center">
-                        <div className="text-xl font-bold text-indigo-600">{value}%</div>
-                        <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Speech Analysis */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                    <Mic className="w-5 h-5 text-purple-600" />
-                    Speech Analysis
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {Object.entries(selectedSession.detailed_metrics.speech_breakdown).map(([key, value]) => (
-                      <div key={key} className="text-center">
-                        <div className="text-xl font-bold text-purple-600">{value}%</div>
-                        <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Body Language Analysis */}
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                    <Users className="w-5 h-5 text-green-600" />
-                    Body Language Analysis
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {Object.entries(selectedSession.detailed_metrics.body_breakdown).map(([key, value]) => (
-                      <div key={key} className="text-center">
-                        <div className="text-xl font-bold text-green-600">{value}%</div>
-                        <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
-                      </div>
-                    ))}
                   </div>
                 </div>
               </div>
