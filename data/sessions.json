@@ -326,5 +326,119 @@
         "body_contribution": 12.0
       }
     }
+  },
+  "7eb40276-2fab-4c62-9262-11e94d1a9279": {
+    "id": "7eb40276-2fab-4c62-9262-11e94d1a9279",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "HR Interview",
+    "question": "Tell me about a time when you had to work with a difficult team member.",
+    "score": 65.23,
+    "duration": 0,
+    "timestamp": "2025-09-25T23:21:50.846835",
+    "detailed_metrics": {
+      "facial_confidence": 62,
+      "speech_confidence": 68,
+      "body_confidence": 66,
+      "facial_breakdown": {
+        "eye_contact": 60,
+        "facial_tension": 65,
+        "head_movement": 62,
+        "smile_authenticity": 63,
+        "blink_rate": 60
+      },
+      "speech_breakdown": {
+        "hesitation_score": 70,
+        "tone_score": 66,
+        "clarity_score": 68,
+        "pace_score": 68
+      },
+      "body_breakdown": {
+        "posture": 65,
+        "hand_gestures": 67,
+        "body_openness": 66,
+        "shoulder_alignment": 66
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 24.8,
+        "speech_contribution": 27.2,
+        "body_contribution": 13.2
+      }
+    }
+  },
+  "a3b5dcd3-66de-482c-9335-4d15f693c6b8": {
+    "id": "a3b5dcd3-66de-482c-9335-4d15f693c6b8",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Technical Interview",
+    "question": "How would you optimize a slow database query?",
+    "score": 58.68,
+    "duration": 0,
+    "timestamp": "2025-09-25T23:30:44.460463",
+    "detailed_metrics": {
+      "facial_confidence": 55,
+      "speech_confidence": 62,
+      "body_confidence": 59,
+      "facial_breakdown": {
+        "eye_contact": 52,
+        "facial_tension": 58,
+        "head_movement": 55,
+        "smile_authenticity": 54,
+        "blink_rate": 56
+      },
+      "speech_breakdown": {
+        "hesitation_score": 65,
+        "tone_score": 60,
+        "clarity_score": 62,
+        "pace_score": 61
+      },
+      "body_breakdown": {
+        "posture": 58,
+        "hand_gestures": 60,
+        "body_openness": 59,
+        "shoulder_alignment": 59
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 22.0,
+        "speech_contribution": 24.8,
+        "body_contribution": 11.8
+      }
+    }
+  },
+  "67ffeb9d-4cc9-44d6-b7ab-cc215c161845": {
+    "id": "67ffeb9d-4cc9-44d6-b7ab-cc215c161845",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Test Interview",
+    "score": 75.5,
+    "duration": 120,
+    "timestamp": "2025-09-25T23:33:37.592275"
+  },
+  "dccb67fd-2c7d-42a7-b6ec-bccc73f910ac": {
+    "id": "dccb67fd-2c7d-42a7-b6ec-bccc73f910ac",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Test Interview",
+    "score": 75.5,
+    "duration": 120,
+    "timestamp": "2025-09-25T23:34:38.253329"
+  },
+  "253bc8b5-49d5-4b65-8a30-dcdf7a6f86ad": {
+    "id": "253bc8b5-49d5-4b65-8a30-dcdf7a6f86ad",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Test Interview",
+    "score": 75.5,
+    "duration": 120,
+    "timestamp": "2025-09-25T23:35:28.180294"
+  },
+  "c38f1b54-7495-45e3-9b6e-9fe22bdf1240": {
+    "id": "c38f1b54-7495-45e3-9b6e-9fe22bdf1240",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Test Interview",
+    "score": 75.5,
+    "duration": 120,
+    "timestamp": "2025-09-25T23:36:11.746375"
   }
 }

@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import Optional, Dict, Any
 import tempfile
 import shutil
 import os
@@ -35,8 +36,8 @@ class SessionCreate(BaseModel):
     topic: str
     score: float
     duration: int
-    question: str = None
-    detailed_metrics: dict = None
+    question: Optional[str] = None
+    detailed_metrics: Optional[Dict[str, Any]] = None
 
 # Authentication endpoints
 @app.post("/auth/signup")
