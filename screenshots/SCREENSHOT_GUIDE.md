@@ -108,9 +108,9 @@ cd backend && uvicorn main:app --reload
 ```
 
 ### 2. **Create Test Account**
-- Sign up with: `test@confidencelab.com`
+- Sign up with: `john.doe@example.com`
 - Password: `TestPassword123`
-- Name: `Test User`
+- Name: `John Doe`
 
 ### 3. **Generate Test Sessions**
 - Complete 3-4 interviews of different types
