@@ -30,6 +30,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
   const [showDetailedAnalysis, setShowDetailedAnalysis] = useState(false);
   const [showQuestionList, setShowQuestionList] = useState(false);
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
+  const [recordedBlob, setRecordedBlob] = useState<Blob | null>(null);
 
   const chunksRef = useRef<Blob[]>([]);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -172,14 +173,13 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
         const completeBlob = new Blob(chunksRef.current, { type: "video/webm" });
         const finalURL = URL.createObjectURL(completeBlob);
         setVideoURL(finalURL);
+        setRecordedBlob(completeBlob);
         chunksRef.current = [];
 
         if (videoRef.current) {
           videoRef.current.srcObject = null;
           videoRef.current.src = finalURL;
         }
-
-        analyzeVideo(completeBlob);
       };
 
       recorder.start();
@@ -386,11 +386,26 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
             <video
               ref={videoRef}
               autoPlay
-              muted={isRecording}
-              controls={!isRecording && !!videoURL}
+              muted
+              playsInline
               className="w-full h-full object-cover"
-              src={!isRecording && videoURL ? videoURL : undefined}
             />
+            {!isRecording && !videoURL && (
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
+                <div className="text-center text-white">
+                  <Video className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                  <p className="text-lg font-medium">Camera Ready</p>
+                  <p className="text-sm opacity-75">Click record to start your interview</p>
+                </div>
+              </div>
+            )}
+            {isRecording && (
+              <div className="absolute top-4 left-4 flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-full">
+                <span className="animate-pulse">●</span>
+                <span className="text-sm font-medium">Recording</span>
+                <span className="text-sm">{Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}</span>
+              </div>
+            )}
   
             {cameraLabel && (
               <div className="absolute bottom-2 left-2 text-white text-sm bg-black bg-opacity-50 px-2 py-1 rounded">
@@ -425,6 +440,26 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
                   </>
                 )}
               </button>
+
+              {!isRecording && videoURL && recordedBlob && (
+                <button
+                  onClick={() => analyzeVideo(recordedBlob)}
+                  disabled={isAnalyzing}
+                  className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg flex items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isAnalyzing ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      Analyzing...
+                    </>
+                  ) : (
+                    <>
+                      <Lightbulb className="w-5 h-5" />
+                      Analyze Video
+                    </>
+                  )}
+                </button>
+              )}
 
               {!isRecording && (videoURL || score !== null) && (
                 <button
