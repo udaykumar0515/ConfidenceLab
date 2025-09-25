@@ -83,10 +83,17 @@ export const logoutUser = () => {
 };
 
 // Add session to user
-export const addSession = async (userId: string, topic: string, score: number, duration: number): Promise<Session> => {
+export const addSession = async (userId: string, topic: string, score: number, duration: number, question?: string, detailedMetrics?: any): Promise<Session> => {
   const response = await apiCall('/auth/session', {
     method: 'POST',
-    body: JSON.stringify({ user_id: userId, topic, score, duration }),
+    body: JSON.stringify({ 
+      user_id: userId, 
+      topic, 
+      score, 
+      duration,
+      question,
+      detailed_metrics: detailedMetrics
+    }),
   });
 
   if (!response.success) {

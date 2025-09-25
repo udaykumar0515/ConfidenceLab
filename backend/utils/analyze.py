@@ -79,7 +79,7 @@ def validate_video_path():
     if not os.path.exists(video_path):
         print(json.dumps({"error": "Video file not found"}))
         sys.exit(1)
-    return video_path
+        return video_path
 
 # Confidence-focused Facial Analysis
 def analyze_confidence_emotions(video_path):
@@ -330,7 +330,7 @@ def analyze_body_confidence(video_path):
     
     # Initialize pose detection
     pose_model = model_cache.get_pose_model()
-    
+
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -355,7 +355,7 @@ def analyze_body_confidence(video_path):
                     body_openness_scores.append(body_openness)
                     shoulder_alignment_scores.append(shoulder_alignment)
                     
-                    frame_count += 1
+                frame_count += 1
                     
             except Exception as e:
                 print(f"Body analysis error: {e}")
@@ -364,10 +364,10 @@ def analyze_body_confidence(video_path):
         frame_num += 1
     
     cap.release()
-    
+
     if frame_count == 0:
         return 0
-    
+
     # Calculate average body confidence scores
     avg_posture = np.mean(posture_scores) if posture_scores else 50
     avg_hand_gestures = np.mean(hand_gesture_scores) if hand_gesture_scores else 50
@@ -548,9 +548,9 @@ def extract_audio_from_video(video_path, output_audio="temp.wav"):
         try:
             clip = VideoFileClip(video_path)
             clip.audio.write_audiofile(output_audio, codec='pcm_s16le')
-            return output_audio
         except Exception as e:
             raise RuntimeError(f"Audio extraction failed: {str(e)}")
+    return output_audio
 
 # Confidence-focused Speech Analysis
 def calculate_speech_confidence(audio_path):
@@ -601,11 +601,11 @@ def get_transcript_with_timing(audio_path):
     wf = wave.open(audio_path, "rb")
     rec = KaldiRecognizer(model, wf.getframerate())
     rec.SetWords(True)
-    
+
     full_text = ""
     words = []
     start_time = time.time()
-    
+
     while True:
         data = wf.readframes(4000)
         if len(data) == 0:
@@ -616,13 +616,13 @@ def get_transcript_with_timing(audio_path):
                 for word_info in result["result"]:
                     words.append(word_info)
             full_text += " " + result.get("text", "")
-    
+
     final_result = json.loads(rec.FinalResult())
     if final_result.get("result"):
         for word_info in final_result["result"]:
             words.append(word_info)
     full_text += " " + final_result.get("text", "")
-    
+
     duration = time.time() - start_time
     wf.close()
     

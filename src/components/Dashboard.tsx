@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Video, Brain, Users, Trophy, Sparkles, Target, Award, LogOut } from 'lucide-react';
+import { Video, Brain, Users, Trophy, Sparkles, Target, Award, LogOut, History } from 'lucide-react';
 import { getUserStats } from '../utils/auth';
 import HRInterview from './HRInterview';
 import TechnicalInterview from './TechnicalInterview';
 import BehavioralInterview from './BehavioralInterview';
+import SessionDetails from './SessionDetails';
 
 const topics = [
   { 
@@ -43,6 +44,7 @@ interface DashboardProps {
 
 function Dashboard({ user, onLogout }: DashboardProps) {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
+  const [showSessions, setShowSessions] = useState(false);
   const [stats, setStats] = useState({
     totalSessions: 0,
     avgScore: 0,
@@ -62,6 +64,10 @@ function Dashboard({ user, onLogout }: DashboardProps) {
     setSelectedTopic(null);
   };
 
+  const handleBackToDashboard = () => {
+    setShowSessions(false);
+  };
+
   // Render specific interview component based on selection
   if (selectedTopic === 'hr') {
     return <HRInterview onClose={handleCloseInterview} />;
@@ -73,6 +79,11 @@ function Dashboard({ user, onLogout }: DashboardProps) {
   
   if (selectedTopic === 'behavioral') {
     return <BehavioralInterview onClose={handleCloseInterview} />;
+  }
+
+  // Render sessions view
+  if (showSessions) {
+    return <SessionDetails user={user} onBack={handleBackToDashboard} />;
   }
 
   return (
@@ -92,13 +103,22 @@ function Dashboard({ user, onLogout }: DashboardProps) {
                 <p className="text-gray-600">Ready to level up your interview skills?</p>
               </div>
             </div>
-            <button
-              onClick={onLogout}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-            >
-              <LogOut className="w-5 h-5" />
-              Logout
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowSessions(true)}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors duration-200"
+              >
+                <History className="w-5 h-5" />
+                View Sessions
+              </button>
+              <button
+                onClick={onLogout}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+              >
+                <LogOut className="w-5 h-5" />
+                Logout
+              </button>
+            </div>
           </div>
         </div>
 

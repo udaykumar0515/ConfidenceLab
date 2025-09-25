@@ -35,6 +35,8 @@ class SessionCreate(BaseModel):
     topic: str
     score: float
     duration: int
+    question: str = None
+    detailed_metrics: dict = None
 
 # Authentication endpoints
 @app.post("/auth/signup")
@@ -70,7 +72,9 @@ async def create_session(session_data: SessionCreate):
             session_data.user_id,
             session_data.topic,
             session_data.score,
-            session_data.duration
+            session_data.duration,
+            session_data.question,
+            session_data.detailed_metrics
         )
         return {"success": True, "session": session}
     except ValueError as e:

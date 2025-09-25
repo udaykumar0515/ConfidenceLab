@@ -127,7 +127,7 @@ def get_user_by_id(user_id: str) -> Optional[Dict]:
     
     return None
 
-def add_session(user_id: str, topic: str, score: float, duration: int) -> Dict:
+def add_session(user_id: str, topic: str, score: float, duration: int, question: str = None, detailed_metrics: Dict = None) -> Dict:
     """Add a new session for a user"""
     users = load_users()
     sessions = load_sessions()
@@ -151,6 +151,12 @@ def add_session(user_id: str, topic: str, score: float, duration: int) -> Dict:
         "duration": duration,
         "timestamp": datetime.now().isoformat()
     }
+    
+    # Add optional fields
+    if question:
+        session_data["question"] = question
+    if detailed_metrics:
+        session_data["detailed_metrics"] = detailed_metrics
     
     # Add to sessions file
     sessions[session_id] = session_data
