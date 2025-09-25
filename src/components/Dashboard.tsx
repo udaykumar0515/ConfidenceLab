@@ -50,8 +50,11 @@ function Dashboard({ user, onLogout }: DashboardProps) {
   });
 
   useEffect(() => {
-    const userStats = getUserStats(user.id);
-    setStats(userStats);
+    const loadStats = async () => {
+      const userStats = await getUserStats(user.id);
+      setStats(userStats);
+    };
+    loadStats();
   }, [user.id]);
 
   if (showSimulator && selectedTopic) {

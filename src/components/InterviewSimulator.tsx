@@ -140,11 +140,11 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
       // Save session data
       const currentUser = getCurrentUser();
       if (currentUser && data.score) {
-        addSession(currentUser.id, {
-          topic: topic.name,
-          score: data.score,
-          duration: timer
-        });
+        try {
+          await addSession(currentUser.id, topic.name, data.score, timer);
+        } catch (error) {
+          console.error("Failed to save session:", error);
+        }
       }
     } catch (err) {
       console.error("❌ Failed to analyze video:", err);

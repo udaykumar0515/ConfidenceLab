@@ -20,7 +20,7 @@ function Login({ onLogin, onSwitchToSignup }: LoginProps) {
     setIsLoading(true);
 
     try {
-      const user = authenticateUser(email, password);
+      const user = await authenticateUser(email, password);
       if (user) {
         setCurrentUser(user);
         onLogin({ id: user.id, name: user.name, email: user.email });

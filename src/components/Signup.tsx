@@ -36,7 +36,7 @@ function Signup({ onSignup, onSwitchToLogin }: SignupProps) {
     }
 
     try {
-      const user = createUser(name, email, password);
+      const user = await createUser(name, email, password);
       onSignup({ id: user.id, name: user.name, email: user.email });
     } catch (err: any) {
       setError(err.message);
