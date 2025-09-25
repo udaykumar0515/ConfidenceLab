@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Video, X, RotateCcw, Clock, Lightbulb } from 'lucide-react';
 import { addSession, getCurrentUser } from '../utils/auth';
-import { getRandomQuestion, Question } from '../data/questions';
+import { getRandomQuestion, Question } from '../utils/questionLoader';
 
 interface BehavioralInterviewProps {
   onClose: () => void;
@@ -34,12 +34,15 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
 
   // Load initial question
   useEffect(() => {
-    const question = getRandomQuestion('behavioral');
-    setCurrentQuestion(question);
+    const loadInitialQuestion = async () => {
+      const question = await getRandomQuestion('behavioral');
+      setCurrentQuestion(question);
+    };
+    loadInitialQuestion();
   }, []);
 
-  const getNewQuestion = () => {
-    const question = getRandomQuestion('behavioral');
+  const getNewQuestion = async () => {
+    const question = await getRandomQuestion('behavioral');
     setCurrentQuestion(question);
     setShowTips(false);
   };

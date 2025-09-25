@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Video, X, RotateCcw, Clock, Lightbulb } from 'lucide-react';
 import { addSession, getCurrentUser } from '../utils/auth';
-import { getRandomQuestion, Question } from '../data/questions';
+import { getRandomQuestion, Question } from '../utils/questionLoader';
 
 interface HRInterviewProps {
   onClose: () => void;
@@ -34,12 +34,15 @@ function HRInterview({ onClose }: HRInterviewProps) {
 
   // Load initial question
   useEffect(() => {
-    const question = getRandomQuestion('hr');
-    setCurrentQuestion(question);
+    const loadInitialQuestion = async () => {
+      const question = await getRandomQuestion('hr');
+      setCurrentQuestion(question);
+    };
+    loadInitialQuestion();
   }, []);
 
-  const getNewQuestion = () => {
-    const question = getRandomQuestion('hr');
+  const getNewQuestion = async () => {
+    const question = await getRandomQuestion('hr');
     setCurrentQuestion(question);
     setShowTips(false);
   };
