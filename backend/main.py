@@ -7,6 +7,8 @@ import os
 from utils.analyze import final_confidence_score
 from utils.user_manager import create_user, authenticate_user, get_user_by_id, add_session, get_user_sessions, get_user_stats
 
+# Server startup information
+
 app = FastAPI()
 
 # Enable CORS so frontend can call backend

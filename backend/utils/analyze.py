@@ -11,7 +11,12 @@ from moviepy import VideoFileClip
 from vosk import Model, KaldiRecognizer
 import subprocess
 import librosa
-import mediapipe as mp
+try:
+    import mediapipe as mp
+    MEDIAPIPE_AVAILABLE = True
+except ImportError:
+    MEDIAPIPE_AVAILABLE = False
+    print("Warning: MediaPipe not available. Body language analysis will be disabled.")
 from functools import lru_cache
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -47,6 +52,8 @@ class ModelCache:
         return self._eye_cascade
     
     def get_pose_model(self):
+        if not MEDIAPIPE_AVAILABLE:
+            return None
         if self._pose_model is None:
             with self._lock:
                 if self._pose_model is None:
@@ -295,6 +302,21 @@ def detect_blink(face_roi, eye_cascade):
 # Body Language Analysis
 def analyze_body_confidence(video_path):
     """Analyze body language confidence indicators"""
+    if not MEDIAPIPE_AVAILABLE:
+        return {
+            "body_confidence": 50.0,  # Default neutral score
+            "breakdown": {
+                "posture": 50.0,
+                "hand_gestures": 50.0,
+                "body_openness": 50.0,
+                "shoulder_alignment": 50.0
+            },
+            "metrics": {
+                "total_frames_analyzed": 0,
+                "mediapipe_available": False
+            }
+        }
+    
     cap = cv2.VideoCapture(video_path)
     frame_interval = 20  # Analyze every 20th frame for body language
     frame_count = 0
@@ -375,6 +397,9 @@ def analyze_body_confidence(video_path):
 
 def analyze_posture(landmarks):
     """Analyze posture confidence (0-100)"""
+    if not MEDIAPIPE_AVAILABLE:
+        return 50.0
+    
     try:
         # Get key points
         nose = landmarks.landmark[mp.solutions.pose.PoseLandmark.NOSE]
@@ -409,6 +434,9 @@ def analyze_posture(landmarks):
 
 def analyze_hand_gestures(landmarks):
     """Analyze hand gesture confidence (0-100)"""
+    if not MEDIAPIPE_AVAILABLE:
+        return 50.0
+    
     try:
         # Get hand positions
         left_wrist = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_WRIST]
@@ -440,6 +468,9 @@ def analyze_hand_gestures(landmarks):
 
 def analyze_body_openness(landmarks):
     """Analyze body openness confidence (0-100)"""
+    if not MEDIAPIPE_AVAILABLE:
+        return 50.0
+    
     try:
         # Get shoulder and hip positions
         left_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_SHOULDER]
@@ -471,6 +502,9 @@ def analyze_body_openness(landmarks):
 
 def analyze_shoulder_alignment(landmarks):
     """Analyze shoulder alignment confidence (0-100)"""
+    if not MEDIAPIPE_AVAILABLE:
+        return 50.0
+    
     try:
         # Get shoulder positions
         left_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_SHOULDER]

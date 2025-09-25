@@ -7,10 +7,12 @@ import uuid
 
 # File paths - use absolute paths to avoid confusion
 import os
-# Go up two levels: utils -> backend -> project_root
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-USERS_FILE = os.path.join(BASE_DIR, "data", "users.json")
-SESSIONS_FILE = os.path.join(BASE_DIR, "data", "sessions.json")
+# Get the project root directory (go up from utils/user_manager.py to project root)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+USERS_FILE = os.path.join(PROJECT_ROOT, "data", "users.json")
+SESSIONS_FILE = os.path.join(PROJECT_ROOT, "data", "sessions.json")
+
+# Paths are now correctly set to the project root data directory
 
 def ensure_data_files():
     """Create data files if they don't exist"""
