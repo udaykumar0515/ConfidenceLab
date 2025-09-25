@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { UserCircle2, BookOpen, Sparkles, Eye, EyeOff } from 'lucide-react';
-import { authenticateUser, setCurrentUser } from '../utils/auth';
+import { UserPlus, BookOpen, Sparkles, Eye, EyeOff } from 'lucide-react';
+import { createUser } from '../utils/auth';
 
-interface LoginProps {
-  onLogin: (userData: any) => void;
-  onSwitchToSignup: () => void;
+interface SignupProps {
+  onSignup: (userData: any) => void;
+  onSwitchToLogin: () => void;
 }
 
-function Login({ onLogin, onSwitchToSignup }: LoginProps) {
+function Signup({ onSignup, onSwitchToLogin }: SignupProps) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,16 +22,24 @@ function Login({ onLogin, onSwitchToSignup }: LoginProps) {
     setError('');
     setIsLoading(true);
 
+    // Validation
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      setIsLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const user = authenticateUser(email, password);
-      if (user) {
-        setCurrentUser(user);
-        onLogin({ id: user.id, name: user.name, email: user.email });
-      } else {
-        setError('Invalid email or password');
-      }
+      const user = createUser(name, email, password);
+      onSignup({ id: user.id, name: user.name, email: user.email });
     } catch (err: any) {
-      setError('Login failed. Please try again.');
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -45,13 +56,13 @@ function Login({ onLogin, onSwitchToSignup }: LoginProps) {
       <div className="bg-white/80 backdrop-blur-lg rounded-xl shadow-xl p-8 w-full max-w-md relative transform hover:scale-105 transition-transform duration-300">
         <div className="flex flex-col items-center mb-8">
           <div className="relative">
-            <UserCircle2 className="w-20 h-20 text-indigo-600 mb-4 animate-bounce" />
+            <UserPlus className="w-20 h-20 text-indigo-600 mb-4 animate-bounce" />
             <Sparkles className="absolute -right-2 -top-2 w-6 h-6 text-yellow-400 animate-spin" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Student!</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Join Us!</h1>
           <p className="text-gray-600 mt-2 text-center flex items-center gap-2">
             <BookOpen className="w-5 h-5" />
-            Practice interviews with AI-powered feedback
+            Start your interview practice journey
           </p>
         </div>
 
@@ -63,6 +74,19 @@ function Login({ onLogin, onSwitchToSignup }: LoginProps) {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="transform transition-all duration-200 hover:scale-105">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50/50 p-3 transition-colors duration-200 hover:bg-gray-50"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+
+          <div className="transform transition-all duration-200 hover:scale-105">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
@@ -70,7 +94,7 @@ function Login({ onLogin, onSwitchToSignup }: LoginProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50/50 p-3 transition-colors duration-200 hover:bg-gray-50"
-              placeholder="your.email@school.edu"
+              placeholder="john.doe@school.edu"
               required
             />
           </div>
@@ -101,23 +125,49 @@ function Login({ onLogin, onSwitchToSignup }: LoginProps) {
             </div>
           </div>
 
+          <div className="transform transition-all duration-200 hover:scale-105">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-50/50 p-3 pr-10 transition-colors duration-200 hover:bg-gray-50"
+                placeholder="Confirm your password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+              >
+                {showConfirmPassword ? (
+                  <EyeOff className="h-5 w-5 text-gray-400" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-400" />
+                )}
+              </button>
+            </div>
+          </div>
+
           <button
             type="submit"
             disabled={isLoading}
             className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Signing In...' : 'Start Your Practice Journey'}
+            {isLoading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-500">
-            Don't have an account?{' '}
+            Already have an account?{' '}
             <button
-              onClick={onSwitchToSignup}
+              onClick={onSwitchToLogin}
               className="text-indigo-600 hover:text-indigo-500 font-medium underline"
             >
-              Sign up here
+              Sign in here
             </button>
           </p>
         </div>
@@ -126,4 +176,4 @@ function Login({ onLogin, onSwitchToSignup }: LoginProps) {
   );
 }
 
-export default Login;
+export default Signup;

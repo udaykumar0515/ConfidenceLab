@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Video, X } from 'lucide-react';
+import { addSession, getCurrentUser } from '../utils/auth';
 
 interface InterviewSimulatorProps {
   topic: {
@@ -122,6 +123,16 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
         throw new Error(data.error);
       }
       setScore(data.score);
+      
+      // Save session data
+      const currentUser = getCurrentUser();
+      if (currentUser && data.score) {
+        addSession(currentUser.id, {
+          topic: topic.name,
+          score: data.score,
+          duration: timer
+        });
+      }
     } catch (err) {
       console.error("❌ Failed to analyze video:", err);
       alert("❌ Failed to analyze the video. Check backend connection.");

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Video, Mic, Brain, Users, Trophy, BarChart, Sparkles, Target, Award } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Video, Brain, Users, Trophy, Sparkles, Target, Award, LogOut } from 'lucide-react';
 import InterviewSimulator from './InterviewSimulator';
+import { getUserStats } from '../utils/auth';
 
 const topics = [
   { 
@@ -31,22 +32,29 @@ const topics = [
 
 interface DashboardProps {
   user: {
+    id: string;
     name: string;
     email: string;
   };
+  onLogout: () => void;
 }
 
-function Dashboard({ user }: DashboardProps) {
-  const [selectedTopic, setSelectedTopic] = useState(null);
+function Dashboard({ user, onLogout }: DashboardProps) {
+  const [selectedTopic, setSelectedTopic] = useState<typeof topics[0] | null>(null);
   const [showSimulator, setShowSimulator] = useState(false);
+  const [stats, setStats] = useState({
+    totalSessions: 0,
+    avgScore: 0,
+    highestScore: 0,
+    totalDuration: 0
+  });
 
-  const stats = {
-    totalPractice: 12,
-    avgConfidence: 85,
-    highestScore: 92
-  };
+  useEffect(() => {
+    const userStats = getUserStats(user.id);
+    setStats(userStats);
+  }, [user.id]);
 
-  if (showSimulator) {
+  if (showSimulator && selectedTopic) {
     return <InterviewSimulator topic={selectedTopic} onClose={() => setShowSimulator(false)} />;
   }
 
@@ -54,17 +62,26 @@ function Dashboard({ user }: DashboardProps) {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-6">
       <div className="max-w-6xl mx-auto">
         <div className="bg-white/80 backdrop-blur-lg rounded-xl shadow-lg p-8 mb-8 transform hover:scale-105 transition-all duration-300">
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
-                <span className="text-2xl text-white font-bold">{user.name[0].toUpperCase()}</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
+                  <span className="text-2xl text-white font-bold">{user.name[0].toUpperCase()}</span>
+                </div>
+                <Sparkles className="absolute -right-2 -top-2 w-6 h-6 text-yellow-400 animate-spin" />
               </div>
-              <Sparkles className="absolute -right-2 -top-2 w-6 h-6 text-yellow-400 animate-spin" />
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}! 👋</h1>
+                <p className="text-gray-600">Ready to level up your interview skills?</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}! 👋</h1>
-              <p className="text-gray-600">Ready to level up your interview skills?</p>
-            </div>
+            <button
+              onClick={onLogout}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+            >
+              <LogOut className="w-5 h-5" />
+              Logout
+            </button>
           </div>
         </div>
 
@@ -75,7 +92,7 @@ function Dashboard({ user }: DashboardProps) {
               <div className="ml-4">
                 <p className="text-sm text-gray-600">Total Practice Sessions</p>
                 <p className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 text-transparent bg-clip-text">
-                  {stats.totalPractice}
+                  {stats.totalSessions}
                 </p>
               </div>
             </div>
@@ -85,9 +102,9 @@ function Dashboard({ user }: DashboardProps) {
             <div className="flex items-center">
               <Target className="w-12 h-12 text-blue-500 animate-pulse" />
               <div className="ml-4">
-                <p className="text-sm text-gray-600">Average Confidence</p>
+                <p className="text-sm text-gray-600">Average Score</p>
                 <p className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
-                  {stats.avgConfidence}%
+                  {stats.avgScore}%
                 </p>
               </div>
             </div>
