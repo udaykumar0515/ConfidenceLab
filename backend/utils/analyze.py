@@ -11,6 +11,56 @@ from moviepy import VideoFileClip
 from vosk import Model, KaldiRecognizer
 import subprocess
 import librosa
+import mediapipe as mp
+from functools import lru_cache
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+# Model Caching System
+class ModelCache:
+    def __init__(self):
+        self._vosk_model = None
+        self._face_cascade = None
+        self._eye_cascade = None
+        self._pose_model = None
+        self._lock = threading.Lock()
+    
+    def get_vosk_model(self):
+        if self._vosk_model is None:
+            with self._lock:
+                if self._vosk_model is None:
+                    self._vosk_model = Model("vosk-model")
+        return self._vosk_model
+    
+    def get_face_cascade(self):
+        if self._face_cascade is None:
+            with self._lock:
+                if self._face_cascade is None:
+                    self._face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        return self._face_cascade
+    
+    def get_eye_cascade(self):
+        if self._eye_cascade is None:
+            with self._lock:
+                if self._eye_cascade is None:
+                    self._eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+        return self._eye_cascade
+    
+    def get_pose_model(self):
+        if self._pose_model is None:
+            with self._lock:
+                if self._pose_model is None:
+                    self._pose_model = mp.solutions.pose.Pose(
+                        static_image_mode=False,
+                        model_complexity=1,
+                        enable_segmentation=False,
+                        min_detection_confidence=0.5,
+                        min_tracking_confidence=0.5
+                    )
+        return self._pose_model
+
+# Global model cache instance
+model_cache = ModelCache()
 
 # Video path validation (only when run as script)
 def validate_video_path():
@@ -39,9 +89,9 @@ def analyze_confidence_emotions(video_path):
     smile_authenticity_scores = []
     blink_rates = []
     
-    # Initialize face detection
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+    # Initialize face detection using cached models
+    face_cascade = model_cache.get_face_cascade()
+    eye_cascade = model_cache.get_eye_cascade()
     
     prev_face_center = None
     blink_count = 0
@@ -242,6 +292,208 @@ def detect_blink(face_roi, eye_cascade):
     except Exception:
         return False
 
+# Body Language Analysis
+def analyze_body_confidence(video_path):
+    """Analyze body language confidence indicators"""
+    cap = cv2.VideoCapture(video_path)
+    frame_interval = 20  # Analyze every 20th frame for body language
+    frame_count = 0
+    frame_num = 0
+    
+    # Body confidence indicators
+    posture_scores = []
+    hand_gesture_scores = []
+    body_openness_scores = []
+    shoulder_alignment_scores = []
+    
+    # Initialize pose detection
+    pose_model = model_cache.get_pose_model()
+    
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+            
+        if frame_num % frame_interval == 0:
+            try:
+                # Convert BGR to RGB for MediaPipe
+                rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                results = pose_model.process(rgb_frame)
+                
+                if results.pose_landmarks:
+                    # Analyze confidence indicators
+                    posture = analyze_posture(results.pose_landmarks)
+                    hand_gestures = analyze_hand_gestures(results.pose_landmarks)
+                    body_openness = analyze_body_openness(results.pose_landmarks)
+                    shoulder_alignment = analyze_shoulder_alignment(results.pose_landmarks)
+                    
+                    # Store scores
+                    posture_scores.append(posture)
+                    hand_gesture_scores.append(hand_gestures)
+                    body_openness_scores.append(body_openness)
+                    shoulder_alignment_scores.append(shoulder_alignment)
+                    
+                    frame_count += 1
+                    
+            except Exception as e:
+                print(f"Body analysis error: {e}")
+                pass
+                
+        frame_num += 1
+    
+    cap.release()
+    
+    if frame_count == 0:
+        return 0
+    
+    # Calculate average body confidence scores
+    avg_posture = np.mean(posture_scores) if posture_scores else 50
+    avg_hand_gestures = np.mean(hand_gesture_scores) if hand_gesture_scores else 50
+    avg_body_openness = np.mean(body_openness_scores) if body_openness_scores else 50
+    avg_shoulder_alignment = np.mean(shoulder_alignment_scores) if shoulder_alignment_scores else 50
+    
+    # Combine body confidence indicators
+    body_confidence = (
+        avg_posture * 0.4 +           # Posture is most important
+        avg_hand_gestures * 0.25 +    # Hand gestures show confidence
+        avg_body_openness * 0.20 +    # Open body language
+        avg_shoulder_alignment * 0.15 # Shoulder alignment
+    )
+    
+    return {
+        "body_confidence": round(body_confidence, 2),
+        "breakdown": {
+            "posture": round(avg_posture, 2),
+            "hand_gestures": round(avg_hand_gestures, 2),
+            "body_openness": round(avg_body_openness, 2),
+            "shoulder_alignment": round(avg_shoulder_alignment, 2)
+        },
+        "metrics": {
+            "total_frames_analyzed": frame_count
+        }
+    }
+
+def analyze_posture(landmarks):
+    """Analyze posture confidence (0-100)"""
+    try:
+        # Get key points
+        nose = landmarks.landmark[mp.solutions.pose.PoseLandmark.NOSE]
+        left_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_SHOULDER]
+        right_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.RIGHT_SHOULDER]
+        left_hip = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_HIP]
+        right_hip = landmarks.landmark[mp.solutions.pose.PoseLandmark.RIGHT_HIP]
+        
+        # Calculate spine alignment
+        shoulder_center_y = (left_shoulder.y + right_shoulder.y) / 2
+        hip_center_y = (left_hip.y + right_hip.y) / 2
+        nose_y = nose.y
+        
+        # Good posture: shoulders back, head up, spine straight
+        spine_alignment = abs(shoulder_center_y - hip_center_y)
+        head_position = nose_y - shoulder_center_y
+        
+        # Score based on alignment
+        if spine_alignment < 0.1 and head_position < -0.05:
+            return 90  # Excellent posture
+        elif spine_alignment < 0.15 and head_position < -0.03:
+            return 75  # Good posture
+        elif spine_alignment < 0.2 and head_position < -0.01:
+            return 60  # Moderate posture
+        elif spine_alignment < 0.25:
+            return 40  # Poor posture
+        else:
+            return 20  # Very poor posture
+            
+    except Exception:
+        return 50  # Default score
+
+def analyze_hand_gestures(landmarks):
+    """Analyze hand gesture confidence (0-100)"""
+    try:
+        # Get hand positions
+        left_wrist = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_WRIST]
+        right_wrist = landmarks.landmark[mp.solutions.pose.PoseLandmark.RIGHT_WRIST]
+        left_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_SHOULDER]
+        right_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.RIGHT_SHOULDER]
+        
+        # Calculate hand movement and position
+        left_hand_height = left_shoulder.y - left_wrist.y
+        right_hand_height = right_shoulder.y - right_wrist.y
+        
+        # Confident people use purposeful hand gestures
+        avg_hand_height = (left_hand_height + right_hand_height) / 2
+        
+        # Score based on hand position (higher = more confident)
+        if avg_hand_height > 0.1:
+            return 85  # Hands up, confident gestures
+        elif avg_hand_height > 0.05:
+            return 70  # Moderate hand movement
+        elif avg_hand_height > 0:
+            return 55  # Some hand movement
+        elif avg_hand_height > -0.05:
+            return 40  # Hands down, less confident
+        else:
+            return 25  # Hands very low, not confident
+            
+    except Exception:
+        return 50  # Default score
+
+def analyze_body_openness(landmarks):
+    """Analyze body openness confidence (0-100)"""
+    try:
+        # Get shoulder and hip positions
+        left_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_SHOULDER]
+        right_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.RIGHT_SHOULDER]
+        left_hip = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_HIP]
+        right_hip = landmarks.landmark[mp.solutions.pose.PoseLandmark.RIGHT_HIP]
+        
+        # Calculate shoulder and hip width
+        shoulder_width = abs(right_shoulder.x - left_shoulder.x)
+        hip_width = abs(right_hip.x - left_hip.x)
+        
+        # Confident people have open body language
+        openness_ratio = shoulder_width / hip_width if hip_width > 0 else 1
+        
+        # Score based on openness
+        if openness_ratio > 1.2:
+            return 90  # Very open body language
+        elif openness_ratio > 1.1:
+            return 75  # Open body language
+        elif openness_ratio > 1.0:
+            return 60  # Moderate openness
+        elif openness_ratio > 0.9:
+            return 45  # Somewhat closed
+        else:
+            return 25  # Closed body language
+            
+    except Exception:
+        return 50  # Default score
+
+def analyze_shoulder_alignment(landmarks):
+    """Analyze shoulder alignment confidence (0-100)"""
+    try:
+        # Get shoulder positions
+        left_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_SHOULDER]
+        right_shoulder = landmarks.landmark[mp.solutions.pose.PoseLandmark.RIGHT_SHOULDER]
+        
+        # Calculate shoulder level difference
+        shoulder_diff = abs(left_shoulder.y - right_shoulder.y)
+        
+        # Confident people have level shoulders
+        if shoulder_diff < 0.02:
+            return 90  # Very level shoulders
+        elif shoulder_diff < 0.04:
+            return 75  # Level shoulders
+        elif shoulder_diff < 0.06:
+            return 60  # Slightly uneven
+        elif shoulder_diff < 0.08:
+            return 45  # Uneven shoulders
+        else:
+            return 25  # Very uneven shoulders
+            
+    except Exception:
+        return 50  # Default score
+
 # Enhanced Audio Extraction with FFmpeg (better for webm files)
 def extract_audio_from_video(video_path, output_audio="temp.wav"):
     try:
@@ -311,7 +563,7 @@ def calculate_speech_confidence(audio_path):
 
 def get_transcript_with_timing(audio_path):
     """Get transcript with word-level timing information"""
-    model = Model("vosk-model")
+    model = model_cache.get_vosk_model()
     wf = wave.open(audio_path, "rb")
     rec = KaldiRecognizer(model, wf.getframerate())
     rec.SetWords(True)
@@ -494,37 +746,67 @@ def calculate_pace_confidence(words, duration):
     else:
         return max(0, 100 - abs(wpm - 140) * 2)  # Penalty for very fast/slow
 
-# Enhanced Final Score with detailed breakdown
+# Enhanced Final Score with detailed breakdown and parallel processing
 def final_confidence_score(video_path):
     try:
-        # Analyze facial confidence indicators
-        facial_data = analyze_confidence_emotions(video_path)
-        facial_confidence = facial_data.get('confidence_score', 0) if isinstance(facial_data, dict) else facial_data
+        start_time = time.time()
         
-        # Analyze speech confidence indicators
+        # Extract audio first (needed for speech analysis)
         audio_path = extract_audio_from_video(video_path)
-        speech_data = calculate_speech_confidence(audio_path)
+        
+        # Run facial, speech, and body analysis in parallel for better performance
+        with ThreadPoolExecutor(max_workers=3) as executor:
+            # Submit all analysis tasks
+            facial_future = executor.submit(analyze_confidence_emotions, video_path)
+            speech_future = executor.submit(calculate_speech_confidence, audio_path)
+            body_future = executor.submit(analyze_body_confidence, video_path)
+            
+            # Collect results
+            facial_data = facial_future.result()
+            speech_data = speech_future.result()
+            body_data = body_future.result()
+        
+        # Extract confidence scores
+        facial_confidence = facial_data.get('confidence_score', 0) if isinstance(facial_data, dict) else facial_data
         speech_confidence = speech_data.get('speech_confidence', 0)
+        body_confidence = body_data.get('body_confidence', 0) if isinstance(body_data, dict) else body_data
 
-        # Calculate final confidence score with improved weighting
-        final_score = round((facial_confidence * 0.5) + (speech_confidence * 0.5), 2)
+        # Calculate final confidence score with comprehensive weighting
+        final_score = round(
+            (facial_confidence * 0.4) + 
+            (speech_confidence * 0.4) + 
+            (body_confidence * 0.2), 2
+        )
 
+        # Clean up temporary audio file
         if os.path.exists(audio_path):
             os.remove(audio_path)
+
+        processing_time = round(time.time() - start_time, 2)
 
         return {
             "score": final_score,
             "facial_confidence": facial_confidence,
             "speech_confidence": speech_confidence,
+            "body_confidence": body_confidence,
             "facial_breakdown": facial_data.get('breakdown', {}) if isinstance(facial_data, dict) else {},
             "speech_breakdown": speech_data.get('confidence_breakdown', {}),
+            "body_breakdown": body_data.get('breakdown', {}) if isinstance(body_data, dict) else {},
             "facial_metrics": facial_data.get('metrics', {}) if isinstance(facial_data, dict) else {},
             "speech_metrics": speech_data.get('hesitation_indicators', {}),
+            "body_metrics": body_data.get('metrics', {}) if isinstance(body_data, dict) else {},
             "overall_breakdown": {
-                "facial_weight": 0.5,
-                "speech_weight": 0.5,
-                "facial_contribution": round(facial_confidence * 0.5, 2),
-                "speech_contribution": round(speech_confidence * 0.5, 2)
+                "facial_weight": 0.4,
+                "speech_weight": 0.4,
+                "body_weight": 0.2,
+                "facial_contribution": round(facial_confidence * 0.4, 2),
+                "speech_contribution": round(speech_confidence * 0.4, 2),
+                "body_contribution": round(body_confidence * 0.2, 2)
+            },
+            "performance": {
+                "processing_time_seconds": processing_time,
+                "parallel_processing": True,
+                "models_cached": True
             }
         }
     except Exception as e:
