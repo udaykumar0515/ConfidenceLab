@@ -1,8 +1,8 @@
-# ConfidenceAI 🚀
+# ConfidenceLab 🚀
 
 **AI-Powered Interview Confidence Analysis Platform**
 
-ConfidenceAI is an innovative platform that uses advanced AI technology to analyze your interview performance through facial expressions, speech patterns, and body language, providing detailed feedback to help you improve your confidence and interview skills.
+ConfidenceLab is an innovative platform that uses advanced AI technology to analyze your interview performance through facial expressions, speech patterns, and body language, providing detailed feedback to help you improve your confidence and interview skills.
 
 ## ✨ Features
 
@@ -63,7 +63,7 @@ python main.py
 ## 🏗️ Architecture
 
 ```
-ConfidenceAI/
+ConfidenceLab/
 ├── frontend/                 # React + TypeScript + Tailwind
 │   ├── src/components/      # Interview components
 │   ├── src/utils/          # Authentication & utilities
@@ -178,4 +178,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Built with ❤️ for better interview confidence**
 
-*ConfidenceAI - Where AI meets Interview Excellence*
+*ConfidenceLab - Where AI meets Interview Excellence*

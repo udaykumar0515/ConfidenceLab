@@ -1,6 +1,6 @@
-# ConfidenceAI - Backend
+# ConfidenceLab - Backend
 
-A powerful FastAPI backend for ConfidenceAI, analyzing video files to determine interview confidence levels through advanced facial emotion analysis, speech processing, and body language detection.
+A powerful FastAPI backend for ConfidenceLab, analyzing video files to determine interview confidence levels through advanced facial emotion analysis, speech processing, and body language detection.
 
 ## 🚀 Quick Start
 
