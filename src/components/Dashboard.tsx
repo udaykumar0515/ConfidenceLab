@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Video, Brain, Users, Trophy, Sparkles, Target, Award, LogOut } from 'lucide-react';
 import { getUserStats } from '../utils/auth';
+import HRInterview from './HRInterview';
+import TechnicalInterview from './TechnicalInterview';
+import BehavioralInterview from './BehavioralInterview';
 
 const topics = [
   { 
@@ -39,6 +42,7 @@ interface DashboardProps {
 }
 
 function Dashboard({ user, onLogout }: DashboardProps) {
+  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [stats, setStats] = useState({
     totalSessions: 0,
     avgScore: 0,
@@ -54,26 +58,22 @@ function Dashboard({ user, onLogout }: DashboardProps) {
     loadStats();
   }, [user.id]);
 
-  const openInterview = (topicId: string) => {
-    const baseUrl = window.location.origin;
-    let interviewUrl;
-    
-    switch (topicId) {
-      case 'hr':
-        interviewUrl = `${baseUrl}/hr-interview.html`;
-        break;
-      case 'technical':
-        interviewUrl = `${baseUrl}/technical-interview.html`;
-        break;
-      case 'behavioral':
-        interviewUrl = `${baseUrl}/behavioral-interview.html`;
-        break;
-      default:
-        interviewUrl = `${baseUrl}/hr-interview.html`;
-    }
-    
-    window.open(interviewUrl, '_blank');
+  const handleCloseInterview = () => {
+    setSelectedTopic(null);
   };
+
+  // Render specific interview component based on selection
+  if (selectedTopic === 'hr') {
+    return <HRInterview onClose={handleCloseInterview} />;
+  }
+  
+  if (selectedTopic === 'technical') {
+    return <TechnicalInterview onClose={handleCloseInterview} />;
+  }
+  
+  if (selectedTopic === 'behavioral') {
+    return <BehavioralInterview onClose={handleCloseInterview} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-6">
@@ -149,7 +149,7 @@ function Dashboard({ user, onLogout }: DashboardProps) {
           {topics.map((topic) => (
             <button
               key={topic.id}
-              onClick={() => openInterview(topic.id)}
+              onClick={() => setSelectedTopic(topic.id)}
               className="group bg-white/80 backdrop-blur-lg rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300"
             >
               <div className="relative h-48 overflow-hidden">
