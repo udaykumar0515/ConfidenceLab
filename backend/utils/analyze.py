@@ -5,20 +5,21 @@ import time
 import wave
 import cv2
 from deepface import DeepFace
-import moviepy.editor as mp
+from moviepy import VideoFileClip
 from vosk import Model, KaldiRecognizer
 import subprocess
 
-# Check for video path
-if len(sys.argv) < 2:
-    print(json.dumps({"error": "No video file path provided"}))
-    sys.exit(1)
+# Video path validation (only when run as script)
+def validate_video_path():
+    if len(sys.argv) < 2:
+        print(json.dumps({"error": "No video file path provided"}))
+        sys.exit(1)
 
-video_path = sys.argv[1]
-
-if not os.path.exists(video_path):
-    print(json.dumps({"error": "Video file not found"}))
-    sys.exit(1)
+    video_path = sys.argv[1]
+    if not os.path.exists(video_path):
+        print(json.dumps({"error": "Video file not found"}))
+        sys.exit(1)
+    return video_path
 
 # Emotion Analysis
 def analyze_emotions_with_deepface(video_path):
@@ -75,8 +76,8 @@ def extract_audio_from_video(video_path, output_audio="temp.wav"):
     except (subprocess.CalledProcessError, FileNotFoundError):
         # Fallback to MoviePy if FFmpeg fails
         try:
-            clip = mp.VideoFileClip(video_path)
-            clip.audio.write_audiofile(output_audio, codec='pcm_s16le', verbose=False, logger=None)
+            clip = VideoFileClip(video_path)
+            clip.audio.write_audiofile(output_audio, codec='pcm_s16le')
             return output_audio
         except Exception as e:
             raise RuntimeError(f"Audio extraction failed: {str(e)}")
@@ -154,5 +155,6 @@ def final_confidence_score(video_path):
 
 # Run
 if __name__ == "__main__":
+    video_path = validate_video_path()
     result = final_confidence_score(video_path)
     print(json.dumps(result))

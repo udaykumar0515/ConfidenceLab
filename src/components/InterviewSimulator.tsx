@@ -23,7 +23,7 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
   const streamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: number;
     if (isRecording) {
       interval = setInterval(() => {
         setTimer((prev) => prev + 1);
@@ -118,6 +118,9 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
       });
 
       const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
       setScore(data.score);
     } catch (err) {
       console.error("❌ Failed to analyze video:", err);

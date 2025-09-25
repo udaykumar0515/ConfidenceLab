@@ -1,15 +1,15 @@
 # Core FastAPI dependencies
 fastapi>=0.115.0
-uvicorn>=0.33.0
+uvicorn[standard]>=0.33.0
 python-multipart>=0.0.20
 
-# Computer Vision and ML
-opencv-python>=4.5.5.64
+# Computer Vision and ML (compatible versions)
+opencv-python>=4.8.0
 deepface>=0.0.79
-tensorflow>=1.9.0
-tf-keras>=2.20.0
+tensorflow>=2.13.0
+tf-keras>=2.13.0
 numpy>=1.24.0
-Pillow>=10.4.0
+Pillow>=10.0.0
 
 # Audio Processing
 moviepy>=1.0.3
@@ -19,3 +19,6 @@ sounddevice>=0.4.6
 # Utilities
 requests>=2.32.0
 tqdm>=4.67.0
+
+# Optional: For better performance
+# tensorflow-gpu>=2.13.0,<2.16.0  # Uncomment if you have GPU support
