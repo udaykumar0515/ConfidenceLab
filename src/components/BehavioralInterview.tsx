@@ -62,7 +62,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
               currentUser.id, 
               "Behavioral Interview", 
               score, 
-              timer,
+              Math.round(analysisResult.video_duration || timer),
               currentQuestion?.text || "Behavioral Interview Question",
               analysisResult
             );

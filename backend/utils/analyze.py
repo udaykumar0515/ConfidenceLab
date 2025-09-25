@@ -804,6 +804,9 @@ def final_confidence_score(video_path):
         facial_confidence = facial_data.get('confidence_score', 0) if isinstance(facial_data, dict) else facial_data
         speech_confidence = speech_data.get('speech_confidence', 0)
         body_confidence = body_data.get('body_confidence', 0) if isinstance(body_data, dict) else body_data
+        
+        # Get video duration from speech analysis
+        video_duration = speech_data.get('duration_sec', 0)
 
         # Calculate final confidence score with comprehensive weighting
         final_score = round(
@@ -823,6 +826,7 @@ def final_confidence_score(video_path):
             "facial_confidence": facial_confidence,
             "speech_confidence": speech_confidence,
             "body_confidence": body_confidence,
+            "video_duration": round(video_duration, 2),
             "facial_breakdown": facial_data.get('breakdown', {}) if isinstance(facial_data, dict) else {},
             "speech_breakdown": speech_data.get('confidence_breakdown', {}),
             "body_breakdown": body_data.get('breakdown', {}) if isinstance(body_data, dict) else {},

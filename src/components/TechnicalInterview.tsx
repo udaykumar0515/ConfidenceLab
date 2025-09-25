@@ -70,7 +70,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
               currentUser.id, 
               "Technical Interview", 
               score, 
-              timer,
+              Math.round(analysisResult.video_duration || timer),
               currentQuestion?.text || "Technical Interview Question",
               analysisResult
             );

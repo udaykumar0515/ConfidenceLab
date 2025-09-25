@@ -500,5 +500,65 @@
         "models_cached": true
       }
     }
+  },
+  "0f5be9d5-2c5d-4467-8af7-7dd47d66bac0": {
+    "id": "0f5be9d5-2c5d-4467-8af7-7dd47d66bac0",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "HR Interview",
+    "score": 66.68,
+    "duration": 120,
+    "timestamp": "2025-09-25T23:50:05.362618",
+    "question": "Tell me about a time you had to work with a difficult team member.",
+    "detailed_metrics": {
+      "score": 66.68,
+      "facial_confidence": 65.44,
+      "speech_confidence": 78.75,
+      "body_confidence": 45.02,
+      "facial_breakdown": {
+        "eye_contact": 88.67,
+        "facial_tension": 75.33,
+        "head_movement": 52.89,
+        "smile_authenticity": 50,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 38.16,
+        "clarity_score": 100,
+        "pace_score": 100
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 25,
+        "body_openness": 90,
+        "shoulder_alignment": 85.15
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 45,
+        "blink_count": 39,
+        "blinks_per_minute": 2340
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 39
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.18,
+        "speech_contribution": 31.5,
+        "body_contribution": 9
+      },
+      "performance": {
+        "processing_time_seconds": 36.91,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
   }
 }

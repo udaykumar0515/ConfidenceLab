@@ -62,7 +62,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
               currentUser.id, 
               "HR Interview", 
               score, 
-              timer,
+              Math.round(analysisResult.video_duration || timer),
               currentQuestion?.text || "HR Interview Question",
               analysisResult
             );
