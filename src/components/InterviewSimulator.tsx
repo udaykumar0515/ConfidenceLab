@@ -33,6 +33,29 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
     return () => clearInterval(interval);
   }, [isRecording]);
 
+  // Save session when score is received
+  useEffect(() => {
+    const saveSession = async () => {
+      if (score !== null && score > 0) {
+        const currentUser = getCurrentUser();
+        console.log("Score changed, saving session...", { score, timer, topic: topic.name, user: currentUser });
+        
+        if (currentUser) {
+          try {
+            const session = await addSession(currentUser.id, topic.name, score, timer);
+            console.log("Session saved successfully:", session);
+          } catch (error) {
+            console.error("Failed to save session:", error);
+          }
+        } else {
+          console.log("No current user found");
+        }
+      }
+    };
+
+    saveSession();
+  }, [score, timer, topic.name]);
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -136,23 +159,6 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
         throw new Error(data.error);
       }
       setScore(data.score);
-      
-      // Save session data
-      const currentUser = getCurrentUser();
-      console.log("Current user:", currentUser);
-      console.log("Score:", data.score, "Timer:", timer, "Topic:", topic.name);
-      
-      if (currentUser && data.score) {
-        try {
-          console.log("Attempting to save session...");
-          const session = await addSession(currentUser.id, topic.name, data.score, timer);
-          console.log("Session saved successfully:", session);
-        } catch (error) {
-          console.error("Failed to save session:", error);
-        }
-      } else {
-        console.log("Not saving session - missing user or score");
-      }
     } catch (err) {
       console.error("❌ Failed to analyze video:", err);
       alert("❌ Failed to analyze the video. Check backend connection.");
