@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import re
 from deepface import DeepFace
-from moviepy import VideoFileClip
+from moviepy.editor import VideoFileClip
 from vosk import Model, KaldiRecognizer
 import subprocess
 import librosa
