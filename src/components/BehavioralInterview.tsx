@@ -52,7 +52,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
     const loadQuestions = async () => {
       try {
         // Load all behavioral questions
-        const response = await fetch('/data/questions/behavioral_questions.json');
+        const response = await fetch('http://localhost:8000/questions/behavioral');
         const data = await response.json();
         const questions = data.questions || data; // Handle both structures
         setAllQuestions(questions);

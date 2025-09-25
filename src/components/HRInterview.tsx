@@ -52,7 +52,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
     const loadQuestions = async () => {
       try {
         // Load all HR questions
-        const response = await fetch('/data/questions/hr_questions.json');
+        const response = await fetch('http://localhost:8000/questions/hr');
         const data = await response.json();
         const questions = data.questions || data; // Handle both structures
         setAllQuestions(questions);

@@ -52,7 +52,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
     const loadQuestions = async () => {
       try {
         // Load all technical questions
-        const response = await fetch('/data/questions/technical_questions.json');
+        const response = await fetch('http://localhost:8000/questions/technical');
         const data = await response.json();
         const questions = data.questions || data; // Handle both structures
         setAllQuestions(questions);

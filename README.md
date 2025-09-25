@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![ConfidenceLab Logo](./logo.png)
+**🎯 ConfidenceLab - AI-Powered Interview Analysis Platform**
 
 **Transform your interview performance with AI-powered confidence analysis**
 
@@ -372,9 +372,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **ConfidenceLab Development Team**
 
-[![GitHub](https://img.shields.io/badge/GitHub-udaykumar0515-black?style=for-the-badge&logo=github)](https://github.com/udaykumar0515)
-
-**Lead Developer & AI Engineer**
+- **H. Uday Kumar** - [GitHub](https://github.com/udaykumar0515)
+- **S. Muskan** 
+- **D. Vijay Baskar** 
+- **M. Abhinai** 
 
 </div>
 
@@ -388,15 +389,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **React** and **FastAPI** communities for excellent documentation
 - **OpenAI** for inspiration in AI-powered applications
 
----
-
-<div align="center">
-
-**⭐ Star this repository if you found it helpful!**
-
-[![GitHub stars](https://img.shields.io/github/stars/udaykumar0515/ConfidenceLab?style=social)](https://github.com/udaykumar0515/ConfidenceLab)
-[![GitHub forks](https://img.shields.io/github/forks/udaykumar0515/ConfidenceLab?style=social)](https://github.com/udaykumar0515/ConfidenceLab)
-
-**ConfidenceLab - Where AI meets Interview Excellence** 🚀
-
-</div>

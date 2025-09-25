@@ -24,7 +24,7 @@ export const loadQuestions = async (interviewType: 'hr' | 'technical' | 'behavio
   }
 
   try {
-    const response = await fetch(`/data/questions/${interviewType}_questions.json`);
+    const response = await fetch(`http://localhost:8000/questions/${interviewType}`);
     if (!response.ok) {
       throw new Error(`Failed to load questions: ${response.statusText}`);
     }

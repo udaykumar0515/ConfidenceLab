@@ -7,6 +7,7 @@ import shutil
 import os
 from utils.analyze import final_confidence_score
 from utils.user_manager import create_user, authenticate_user, get_user_by_id, add_session, get_user_sessions, get_user_stats
+import json
 
 # Server startup information
 
@@ -127,6 +128,33 @@ async def analyze(file: UploadFile = File(...)):
                 os.remove(tmp_path)
             except:
                 pass  # Give up if still can't delete
+
+# Questions endpoints
+@app.get("/questions/{interview_type}")
+async def get_questions(interview_type: str):
+    """Get questions for a specific interview type"""
+    try:
+        # Map interview types to file names
+        type_mapping = {
+            "hr": "hr_questions.json",
+            "technical": "technical_questions.json", 
+            "behavioral": "behavioral_questions.json"
+        }
+        
+        if interview_type not in type_mapping:
+            raise HTTPException(status_code=400, detail="Invalid interview type")
+        
+        file_path = os.path.join("data", "questions", type_mapping[interview_type])
+        
+        if not os.path.exists(file_path):
+            raise HTTPException(status_code=404, detail="Questions file not found")
+        
+        with open(file_path, 'r', encoding='utf-8') as f:
+            questions_data = json.load(f)
+        
+        return questions_data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading questions: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
