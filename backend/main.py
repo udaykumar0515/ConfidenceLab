@@ -64,6 +64,7 @@ async def get_user(user_id: str):
 @app.post("/auth/session")
 async def create_session(session_data: SessionCreate):
     try:
+        print(f"Session data received: {session_data}")
         session = add_session(
             session_data.user_id,
             session_data.topic,
@@ -72,8 +73,10 @@ async def create_session(session_data: SessionCreate):
         )
         return {"success": True, "session": session}
     except ValueError as e:
+        print(f"ValueError in session creation: {e}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
+        print(f"Exception in session creation: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
 @app.get("/auth/user/{user_id}/sessions")

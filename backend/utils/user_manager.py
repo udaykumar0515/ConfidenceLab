@@ -122,17 +122,23 @@ def get_user_by_id(user_id: str) -> Optional[Dict]:
 
 def add_session(user_id: str, topic: str, score: float, duration: int) -> Dict:
     """Add a new session for a user"""
+    print(f"add_session called with: user_id={user_id}, topic={topic}, score={score}, duration={duration}")
     users = load_users()
     sessions = load_sessions()
+    
+    print(f"Loaded users: {list(users.keys())}")
+    print(f"Looking for user_id: {user_id}")
     
     # Find user by ID
     user_email = None
     for email, user in users.items():
+        print(f"Checking user: {email} with id: {user.get('id', 'NO_ID')}")
         if user["id"] == user_id:
             user_email = email
             break
     
     if not user_email:
+        print(f"User not found for ID: {user_id}")
         raise ValueError("User not found")
     
     session_id = str(uuid.uuid4())
