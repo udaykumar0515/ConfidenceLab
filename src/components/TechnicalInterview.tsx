@@ -50,20 +50,15 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
   useEffect(() => {
     const loadQuestions = async () => {
       try {
-        console.log('Loading technical questions...');
         // Load all technical questions
         const response = await fetch('/data/questions/technical_questions.json');
-        console.log('Response status:', response.status);
         const data = await response.json();
-        console.log('Loaded data:', data);
         const questions = data.questions || data; // Handle both structures
-        console.log('Questions array:', questions);
         setAllQuestions(questions);
         
         // Set initial random question
         const randomIndex = Math.floor(Math.random() * questions.length);
         setCurrentQuestion(questions[randomIndex]);
-        console.log('Set initial question:', questions[randomIndex]);
       } catch (error) {
         console.error('Failed to load questions:', error);
         // Fallback to random question
@@ -96,11 +91,10 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
     const saveSession = async () => {
       if (score !== null && score > 0 && analysisResult && analysisResult.video_duration) {
         const currentUser = getCurrentUser();
-        console.log("Score changed, saving session...", { score, timer, topic: "Technical Interview", user: currentUser });
         
         if (currentUser) {
           try {
-            const session = await addSession(
+            await addSession(
               currentUser.id, 
               "Technical Interview", 
               score, 
@@ -108,12 +102,9 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
               currentQuestion?.text || "Technical Interview Question",
               analysisResult
             );
-            console.log("Session saved successfully:", session);
           } catch (error) {
             console.error("Failed to save session:", error);
           }
-        } else {
-          console.log("No current user found");
         }
       }
     };

@@ -38,17 +38,13 @@ function InterviewSimulator({ topic, onClose }: InterviewSimulatorProps) {
     const saveSession = async () => {
       if (score !== null && score > 0) {
         const currentUser = getCurrentUser();
-        console.log("Score changed, saving session...", { score, timer, topic: topic.name, user: currentUser });
         
         if (currentUser) {
           try {
-            const session = await addSession(currentUser.id, topic.name, score, timer);
-            console.log("Session saved successfully:", session);
+            await addSession(currentUser.id, topic.name, score, timer);
           } catch (error) {
             console.error("Failed to save session:", error);
           }
-        } else {
-          console.log("No current user found");
         }
       }
     };
