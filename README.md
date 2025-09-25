@@ -12,8 +12,6 @@
 [![Python](https://img.shields.io/badge/Python-3.10-blue.svg)](https://python.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 
-[🚀 Live Demo](#) | [📖 Documentation](#documentation) | [🛠️ Installation](#installation) | [🤝 Contributing](#contributing)
-
 </div>
 
 ---
@@ -368,7 +366,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-<div align="center">
+<div>
 
 **ConfidenceLab Development Team**
 
