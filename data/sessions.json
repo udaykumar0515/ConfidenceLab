@@ -560,5 +560,66 @@
         "models_cached": true
       }
     }
+  },
+  "9cae8201-cc81-48fc-95d4-a9eb3c6361de": {
+    "id": "9cae8201-cc81-48fc-95d4-a9eb3c6361de",
+    "user_id": "de332984-a3f7-4264-a854-de034d6bd075",
+    "topic": "Test Duration Fix",
+    "score": 66.32,
+    "duration": 24,
+    "timestamp": "2025-09-26T00:03:00.362392",
+    "question": "Test question for duration fix",
+    "detailed_metrics": {
+      "score": 66.32,
+      "facial_confidence": 65.44,
+      "speech_confidence": 77.86,
+      "body_confidence": 45.02,
+      "video_duration": 24.44,
+      "facial_breakdown": {
+        "eye_contact": 88.67,
+        "facial_tension": 75.33,
+        "head_movement": 52.89,
+        "smile_authenticity": 50.0,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 38.16,
+        "clarity_score": 100,
+        "pace_score": 95.54
+      },
+      "body_breakdown": {
+        "posture": 20.0,
+        "hand_gestures": 25.0,
+        "body_openness": 90.0,
+        "shoulder_alignment": 85.15
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 45,
+        "blink_count": 39,
+        "blinks_per_minute": 2340.0
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 39
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.18,
+        "speech_contribution": 31.14,
+        "body_contribution": 9.0
+      },
+      "performance": {
+        "processing_time_seconds": 26.44,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
   }
 }

@@ -16,6 +16,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
     facial_confidence: number;
     speech_confidence: number;
     body_confidence: number;
+    video_duration?: number;
     facial_breakdown?: Record<string, number>;
     speech_breakdown?: Record<string, number>;
     body_breakdown?: Record<string, number>;
@@ -60,7 +61,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
   // Save session when score is received
   useEffect(() => {
     const saveSession = async () => {
-      if (score !== null && score > 0 && analysisResult) {
+      if (score !== null && score > 0 && analysisResult && analysisResult.video_duration) {
         const currentUser = getCurrentUser();
         console.log("Score changed, saving session...", { score, timer, topic: "Technical Interview", user: currentUser });
         
@@ -70,7 +71,7 @@ function TechnicalInterview({ onClose }: TechnicalInterviewProps) {
               currentUser.id, 
               "Technical Interview", 
               score, 
-              Math.round(analysisResult.video_duration || timer),
+              Math.round(analysisResult.video_duration),
               currentQuestion?.text || "Technical Interview Question",
               analysisResult
             );

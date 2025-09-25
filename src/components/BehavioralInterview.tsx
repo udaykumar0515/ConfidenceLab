@@ -11,7 +11,16 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [timer, setTimer] = useState(0);
   const [score, setScore] = useState<number | null>(null);
-  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<{
+    score: number;
+    facial_confidence: number;
+    speech_confidence: number;
+    body_confidence: number;
+    video_duration?: number;
+    facial_breakdown?: Record<string, number>;
+    speech_breakdown?: Record<string, number>;
+    body_breakdown?: Record<string, number>;
+  } | null>(null);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [videoURL, setVideoURL] = useState<string | null>(null);
   const [cameraLabel, setCameraLabel] = useState<string | null>(null);
@@ -52,7 +61,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
   // Save session when score is received
   useEffect(() => {
     const saveSession = async () => {
-      if (score !== null && score > 0 && analysisResult) {
+      if (score !== null && score > 0 && analysisResult && analysisResult.video_duration) {
         const currentUser = getCurrentUser();
         console.log("Score changed, saving session...", { score, timer, topic: "Behavioral Interview", user: currentUser });
         
@@ -62,7 +71,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
               currentUser.id, 
               "Behavioral Interview", 
               score, 
-              Math.round(analysisResult.video_duration || timer),
+              Math.round(analysisResult.video_duration),
               currentQuestion?.text || "Behavioral Interview Question",
               analysisResult
             );
@@ -77,7 +86,7 @@ function BehavioralInterview({ onClose }: BehavioralInterviewProps) {
     };
 
     saveSession();
-  }, [score, analysisResult, currentQuestion]);
+  }, [score, analysisResult, currentQuestion, timer]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
