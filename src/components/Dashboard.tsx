@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Video, Brain, Users, Trophy, Sparkles, Target, Award, LogOut } from 'lucide-react';
-import InterviewSimulator from './InterviewSimulator';
 import { getUserStats } from '../utils/auth';
 
 const topics = [
@@ -40,8 +39,6 @@ interface DashboardProps {
 }
 
 function Dashboard({ user, onLogout }: DashboardProps) {
-  const [selectedTopic, setSelectedTopic] = useState<typeof topics[0] | null>(null);
-  const [showSimulator, setShowSimulator] = useState(false);
   const [stats, setStats] = useState({
     totalSessions: 0,
     avgScore: 0,
@@ -57,9 +54,26 @@ function Dashboard({ user, onLogout }: DashboardProps) {
     loadStats();
   }, [user.id]);
 
-  if (showSimulator && selectedTopic) {
-    return <InterviewSimulator topic={selectedTopic} onClose={() => setShowSimulator(false)} />;
-  }
+  const openInterview = (topicId: string) => {
+    const baseUrl = window.location.origin;
+    let interviewUrl;
+    
+    switch (topicId) {
+      case 'hr':
+        interviewUrl = `${baseUrl}/hr-interview.html`;
+        break;
+      case 'technical':
+        interviewUrl = `${baseUrl}/technical-interview.html`;
+        break;
+      case 'behavioral':
+        interviewUrl = `${baseUrl}/behavioral-interview.html`;
+        break;
+      default:
+        interviewUrl = `${baseUrl}/hr-interview.html`;
+    }
+    
+    window.open(interviewUrl, '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-6">
@@ -135,10 +149,7 @@ function Dashboard({ user, onLogout }: DashboardProps) {
           {topics.map((topic) => (
             <button
               key={topic.id}
-              onClick={() => {
-                setSelectedTopic(topic);
-                setShowSimulator(true);
-              }}
+              onClick={() => openInterview(topic.id)}
               className="group bg-white/80 backdrop-blur-lg rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300"
             >
               <div className="relative h-48 overflow-hidden">

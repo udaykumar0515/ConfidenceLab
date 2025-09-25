@@ -6,8 +6,8 @@ from typing import Dict, List, Optional
 import uuid
 
 # File paths
-USERS_FILE = "users.json"
-SESSIONS_FILE = "sessions.json"
+USERS_FILE = "../data/users.json"
+SESSIONS_FILE = "../data/sessions.json"
 
 def ensure_data_files():
     """Create data files if they don't exist"""

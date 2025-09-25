@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavioral Interview Practice</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { Video, X } = LucideReact;
+
+        function BehavioralInterview() {
+            const [isRecording, setIsRecording] = useState(false);
+            const [timer, setTimer] = useState(0);
+            const [score, setScore] = useState(null);
+            const [mediaRecorder, setMediaRecorder] = useState(null);
+            const [videoURL, setVideoURL] = useState(null);
+            const [cameraLabel, setCameraLabel] = useState(null);
+            const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+            const chunksRef = useRef([]);
+            const videoRef = useRef(null);
+            const streamRef = useRef(null);
+
+            useEffect(() => {
+                let interval;
+                if (isRecording) {
+                    interval = setInterval(() => {
+                        setTimer((prev) => prev + 1);
+                    }, 1000);
+                }
+                return () => clearInterval(interval);
+            }, [isRecording]);
+
+            // Save session when score is received
+            useEffect(() => {
+                const saveSession = async () => {
+                    if (score !== null && score > 0) {
+                        const currentUser = JSON.parse(localStorage.getItem('current_user') || 'null');
+                        console.log("Score changed, saving session...", { score, timer, topic: "Behavioral Interview", user: currentUser });
+                        
+                        if (currentUser) {
+                            try {
+                                const response = await fetch('http://127.0.0.1:8000/auth/session', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        user_id: currentUser.id,
+                                        topic: "Behavioral Interview",
+                                        score: score,
+                                        duration: timer
+                                    })
+                                });
+                                const result = await response.json();
+                                console.log("Session saved successfully:", result);
+                            } catch (error) {
+                                console.error("Failed to save session:", error);
+                            }
+                        } else {
+                            console.log("No current user found");
+                        }
+                    }
+                };
+
+                saveSession();
+            }, [score, timer]);
+
+            const formatTime = (seconds) => {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            };
+
+            const startRecording = async () => {
+                try {
+                    const devices = await navigator.mediaDevices.enumerateDevices();
+                    const videoDevices = devices.filter((device) => device.kind === "videoinput");
+
+                    let selectedDevice = videoDevices.find((device) => 
+                        device.label.toLowerCase().includes('front') || 
+                        device.label.toLowerCase().includes('user') ||
+                        device.label.toLowerCase().includes('facing')
+                    );
+
+                    if (!selectedDevice && videoDevices.length > 0) {
+                        selectedDevice = videoDevices[0];
+                    }
+
+                    if (!selectedDevice) {
+                        throw new Error("No camera found. Please make sure a camera is connected and accessible.");
+                    }
+
+                    setCameraLabel(selectedDevice.label || "Default Camera");
+
+                    const stream = await navigator.mediaDevices.getUserMedia({
+                        video: { 
+                            deviceId: selectedDevice.deviceId,
+                            width: { ideal: 1280 },
+                            height: { ideal: 720 }
+                        },
+                        audio: true,
+                    });
+
+                    streamRef.current = stream;
+
+                    const recorder = new MediaRecorder(stream);
+                    chunksRef.current = [];
+
+                    recorder.ondataavailable = (e) => {
+                        if (e.data.size > 0) chunksRef.current.push(e.data);
+                    };
+
+                    recorder.onstop = () => {
+                        const completeBlob = new Blob(chunksRef.current, { type: "video/webm" });
+                        const finalURL = URL.createObjectURL(completeBlob);
+                        setVideoURL(finalURL);
+                        chunksRef.current = [];
+
+                        if (videoRef.current) {
+                            videoRef.current.srcObject = null;
+                            videoRef.current.src = finalURL;
+                        }
+
+                        analyzeVideo(completeBlob);
+                    };
+
+                    recorder.start();
+                    setMediaRecorder(recorder);
+                    setIsRecording(true);
+                    setTimer(0);
+
+                    if (videoRef.current) videoRef.current.srcObject = stream;
+                } catch (err) {
+                    console.error("🛑 Could not start recording:", err);
+                    alert("⚠️ Could not access camera. Please check:\n• Camera permissions are allowed\n• Camera is connected and working\n• No other app is using the camera");
+                }
+            };
+
+            const stopRecording = () => {
+                mediaRecorder?.stop();
+
+                if (streamRef.current) {
+                    streamRef.current.getTracks().forEach((track) => track.stop());
+                    streamRef.current = null;
+                }
+
+                setIsRecording(false);
+            };
+
+            const analyzeVideo = async (blob) => {
+                setIsAnalyzing(true);
+                setScore(null);
+
+                const formData = new FormData();
+                formData.append("file", blob, "behavioral_interview.webm");
+
+                try {
+                    const response = await fetch("http://127.0.0.1:8000/analyze", {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    const data = await response.json();
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    setScore(data.score);
+                } catch (err) {
+                    console.error("❌ Failed to analyze video:", err);
+                    alert("❌ Failed to analyze the video. Check backend connection.");
+                } finally {
+                    setIsAnalyzing(false);
+                }
+            };
+
+            return React.createElement('div', { className: "min-h-screen bg-gray-50 p-6" },
+                React.createElement('div', { className: "max-w-4xl mx-auto" },
+                    React.createElement('div', { className: "bg-white rounded-xl shadow-lg p-6" },
+                        // Header
+                        React.createElement('div', { className: "flex justify-between items-center mb-6" },
+                            React.createElement('h2', { className: "text-2xl font-bold text-gray-900" }, "Behavioral Interview Practice"),
+                            React.createElement('button', { 
+                                onClick: () => window.close(),
+                                className: "p-2 hover:bg-gray-100 rounded-full"
+                            }, React.createElement(X, { className: "w-6 h-6 text-gray-500" }))
+                        ),
+                        
+                        // Video Area
+                        React.createElement('div', { className: "aspect-video bg-gray-900 rounded-lg mb-6 relative overflow-hidden" },
+                            React.createElement('video', {
+                                ref: videoRef,
+                                autoPlay: true,
+                                muted: isRecording,
+                                controls: !isRecording && !!videoURL,
+                                className: "w-full h-full object-cover rounded-lg",
+                                src: !isRecording && videoURL ? videoURL : undefined
+                            }),
+                            
+                            cameraLabel && React.createElement('div', { 
+                                className: "absolute bottom-2 left-2 text-white text-sm bg-black bg-opacity-50 px-2 py-1 rounded"
+                            }, `🎥 ${cameraLabel}`),
+                            
+                            React.createElement('div', { 
+                                className: "absolute top-2 right-2 text-white text-sm bg-black bg-opacity-50 px-2 py-1 rounded"
+                            }, formatTime(timer))
+                        ),
+                        
+                        // Controls
+                        React.createElement('div', { className: "flex flex-col items-center gap-4 mb-6" },
+                            React.createElement('button', {
+                                onClick: isRecording ? stopRecording : startRecording,
+                                disabled: isAnalyzing,
+                                className: `px-6 py-3 rounded-lg flex items-center gap-2 transition-all ${
+                                    isRecording
+                                        ? 'bg-red-500 hover:bg-red-600 text-white'
+                                        : 'bg-green-600 hover:bg-green-700 text-white'
+                                } ${isAnalyzing ? 'opacity-50 cursor-not-allowed' : ''}`
+                            },
+                                isRecording ? (
+                                    React.createElement(React.Fragment, null,
+                                        React.createElement('span', { className: "animate-pulse" }, "●"),
+                                        " Stop Recording"
+                                    )
+                                ) : (
+                                    React.createElement(React.Fragment, null,
+                                        React.createElement(Video, { className: "w-5 h-5" }),
+                                        " Start Recording"
+                                    )
+                                )
+                            ),
+                            
+                            (!isRecording && (videoURL || score !== null)) && React.createElement('button', {
+                                onClick: () => {
+                                    setVideoURL(null);
+                                    setScore(null);
+                                    setTimer(0);
+                                },
+                                className: "text-sm text-gray-500 hover:text-gray-700 underline"
+                            }, "Reset Session")
+                        ),
+                        
+                        // File Upload
+                        React.createElement('div', { className: "mb-6 border-t pt-6" },
+                            React.createElement('h3', { className: "text-lg font-medium mb-2" }, "Upload a video file for analysis"),
+                            React.createElement('input', {
+                                type: "file",
+                                accept: "video/*",
+                                disabled: isAnalyzing,
+                                onChange: (e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) {
+                                        const url = URL.createObjectURL(file);
+                                        setVideoURL(url);
+                                        analyzeVideo(file);
+                                    }
+                                },
+                                className: "mb-4 block w-full"
+                            })
+                        ),
+                        
+                        // Analyzing Loader
+                        isAnalyzing && React.createElement('div', { 
+                            className: "text-center text-gray-600 my-4 animate-pulse"
+                        }, "⏳ Analyzing your behavioral interview performance..."),
+                        
+                        // Download Link
+                        (!isRecording && videoURL) && React.createElement('a', {
+                            href: videoURL,
+                            download: "behavioral_interview.webm",
+                            className: "text-blue-600 underline block text-center mb-4"
+                        }, "Download Behavioral Interview Video"),
+                        
+                        // Score Output
+                        (score !== null) && React.createElement('div', { 
+                            className: "bg-gray-50 rounded-lg p-6 text-center border-t mt-6"
+                        },
+                            React.createElement('h3', { className: "text-xl font-semibold mb-2" }, "Behavioral Interview Score"),
+                            React.createElement('div', { 
+                                className: "text-4xl font-bold text-green-600 mb-4"
+                            }, `${score}%`),
+                            React.createElement('div', { className: "text-gray-600" },
+                                React.createElement('p', { className: "mb-2" }, "Behavioral Interview Tips:"),
+                                React.createElement('ul', { 
+                                    className: "text-left max-w-md mx-auto list-disc list-inside text-sm"
+                                },
+                                    React.createElement('li', null, "Use the STAR method (Situation, Task, Action, Result)"),
+                                    React.createElement('li', null, "Be specific with examples and outcomes"),
+                                    React.createElement('li', null, "Show how you learned from challenges"),
+                                    React.createElement('li', null, "Demonstrate leadership and teamwork skills")
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        ReactDOM.render(React.createElement(BehavioralInterview), document.getElementById('root'));
+    </script>
+</body>
+</html>
