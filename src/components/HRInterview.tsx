@@ -373,64 +373,25 @@ function HRInterview({ onClose }: HRInterviewProps) {
               
               {showDetailedAnalysis && analysisResult && (
                 <div className="mt-4 p-4 bg-white rounded-lg border text-left">
-                  <h4 className="font-semibold mb-3">Detailed Analysis Breakdown</h4>
+                  <h4 className="font-semibold mb-3">Confidence Analysis</h4>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="text-center p-3 bg-blue-50 rounded">
                       <div className="text-lg font-bold text-blue-600">{analysisResult.facial_confidence}%</div>
                       <div className="text-sm text-gray-600">Facial Confidence</div>
+                      <div className="text-xs text-gray-500">Eye contact, expressions, tension</div>
                     </div>
                     <div className="text-center p-3 bg-purple-50 rounded">
                       <div className="text-lg font-bold text-purple-600">{analysisResult.speech_confidence}%</div>
                       <div className="text-sm text-gray-600">Speech Confidence</div>
+                      <div className="text-xs text-gray-500">Clarity, tone, hesitation</div>
                     </div>
                     <div className="text-center p-3 bg-green-50 rounded">
                       <div className="text-lg font-bold text-green-600">{analysisResult.body_confidence}%</div>
                       <div className="text-sm text-gray-600">Body Confidence</div>
+                      <div className="text-xs text-gray-500">Posture, gestures, openness</div>
                     </div>
                   </div>
-
-                  {analysisResult.facial_breakdown && (
-                    <div className="mb-3">
-                      <h5 className="font-medium text-gray-900 mb-2">Facial Analysis:</h5>
-                      <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm">
-                        {Object.entries(analysisResult.facial_breakdown).map(([key, value]) => (
-                          <div key={key} className="text-center">
-                            <div className="font-medium text-indigo-600">{value}%</div>
-                            <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {analysisResult.speech_breakdown && (
-                    <div className="mb-3">
-                      <h5 className="font-medium text-gray-900 mb-2">Speech Analysis:</h5>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                        {Object.entries(analysisResult.speech_breakdown).map(([key, value]) => (
-                          <div key={key} className="text-center">
-                            <div className="font-medium text-purple-600">{value}%</div>
-                            <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {analysisResult.body_breakdown && (
-                    <div className="mb-3">
-                      <h5 className="font-medium text-gray-900 mb-2">Body Language Analysis:</h5>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                        {Object.entries(analysisResult.body_breakdown).map(([key, value]) => (
-                          <div key={key} className="text-center">
-                            <div className="font-medium text-green-600">{value}%</div>
-                            <div className="text-xs text-gray-600 capitalize">{key.replace('_', ' ')}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               )}
               
