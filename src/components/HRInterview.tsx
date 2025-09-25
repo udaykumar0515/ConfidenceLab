@@ -376,6 +376,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
           <div className="flex-1 bg-gray-900 relative">
             <video
               ref={videoRef}
+              src={videoURL || undefined}
               autoPlay
               muted
               playsInline
@@ -481,7 +482,7 @@ function HRInterview({ onClose }: HRInterviewProps) {
                   if (file) {
                     const url = URL.createObjectURL(file);
                     setVideoURL(url);
-                    analyzeVideo(file);
+                    setRecordedBlob(file);
                   }
                 }}
                 className="text-sm text-gray-600"
