@@ -371,7 +371,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **ConfidenceLab Development Team**
 
 - **H. Uday Kumar** - [GitHub](https://github.com/udaykumar0515)
-- **S. Muskan** 
+- **S. Muskan** - [GitHub](https://github.com/muski630346)
 - **D. Vijay Baskar** 
 - **M. Abhinai** 
 
