@@ -144,7 +144,9 @@ async def get_questions(interview_type: str):
         if interview_type not in type_mapping:
             raise HTTPException(status_code=400, detail="Invalid interview type")
         
-        file_path = os.path.join("data", "questions", type_mapping[interview_type])
+        # Get the project root directory (go up from backend/main.py to project root)
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        file_path = os.path.join(project_root, "data", "questions", type_mapping[interview_type])
         
         if not os.path.exists(file_path):
             raise HTTPException(status_code=404, detail="Questions file not found")
