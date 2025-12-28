@@ -6,7 +6,12 @@ import wave
 import cv2
 import numpy as np
 import re
-from deepface import DeepFace
+try:
+    from deepface import DeepFace
+    DEEPFACE_AVAILABLE = True
+except ImportError:
+    DEEPFACE_AVAILABLE = False
+    print("Warning: DeepFace not available. Smile authenticity analysis will use default scoring.")
 from moviepy.editor import VideoFileClip
 from vosk import Model, KaldiRecognizer
 import subprocess
@@ -189,7 +194,8 @@ def analyze_confidence_emotions(video_path):
         "metrics": {
             "total_frames_analyzed": frame_count,
             "blink_count": blink_count,
-            "blinks_per_minute": round(blink_rate, 2)
+            "blinks_per_minute": round(blink_rate, 2),
+            "deepface_available": DEEPFACE_AVAILABLE
         }
     }
 
@@ -269,6 +275,9 @@ def analyze_head_movement(face, prev_face_center):
 
 def analyze_smile_authenticity(face_roi):
     """Analyze smile authenticity (0-100, higher = more genuine = more confident)"""
+    if not DEEPFACE_AVAILABLE:
+        return 50.0  # Default neutral score when DeepFace is not available
+    
     try:
         # Use DeepFace for emotion analysis but focus on smile confidence
         result = DeepFace.analyze(face_roi, actions=['emotion'], enforce_detection=False)

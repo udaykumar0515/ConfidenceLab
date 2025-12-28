@@ -76,7 +76,7 @@ backend/utils/__pycache__/
 # Temporary files
 *.tmp
 *.temp
-PROJECT_FULL_DOC.md
+# PROJECT_FULL_DOC.md
 
 # Screenshots to ignore
 screenshots/06-signup-page.png

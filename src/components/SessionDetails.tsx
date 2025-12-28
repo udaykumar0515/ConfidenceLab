@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Calendar, Clock, Target, Eye, Mic, Users, TrendingUp, BarChart3 } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Target, TrendingUp, BarChart3 } from 'lucide-react';
 
 interface Session {
   id: string;

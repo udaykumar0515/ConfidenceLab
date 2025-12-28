@@ -14,6 +14,10 @@ export interface Session {
   timestamp: string;
 }
 
+export interface DetailedMetrics {
+  [key: string]: string | number | boolean | null | undefined | Record<string, number>;
+}
+
 const API_BASE = 'http://127.0.0.1:8000';
 const CURRENT_USER_KEY = 'current_user';
 
@@ -61,7 +65,7 @@ export const authenticateUser = async (email: string, password: string): Promise
       return response.user;
     }
     return null;
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -83,7 +87,7 @@ export const logoutUser = () => {
 };
 
 // Add session to user
-export const addSession = async (userId: string, topic: string, score: number, duration: number, question?: string, detailedMetrics?: any): Promise<Session> => {
+export const addSession = async (userId: string, topic: string, score: number, duration: number, question?: string, detailedMetrics?: DetailedMetrics): Promise<Session> => {
   const response = await apiCall('/auth/session', {
     method: 'POST',
     body: JSON.stringify({ 
@@ -118,7 +122,7 @@ export const getUserStats = async (userId: string) => {
     }
     
     return { totalSessions: 0, avgScore: 0, highestScore: 0, totalDuration: 0 };
-  } catch (error) {
+  } catch  {
     return { totalSessions: 0, avgScore: 0, highestScore: 0, totalDuration: 0 };
   }
 };
@@ -133,7 +137,7 @@ export const getUserSessions = async (userId: string): Promise<Session[]> => {
     }
     
     return [];
-  } catch (error) {
+  } catch {
     return [];
   }
 };

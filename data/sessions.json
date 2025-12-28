@@ -425,5 +425,127 @@
         "models_cached": true
       }
     }
+  },
+  "5093ef55-db1b-4be5-8efe-8a876482a725": {
+    "id": "5093ef55-db1b-4be5-8efe-8a876482a725",
+    "user_id": "04857672-f68d-4a18-a84a-bd2701641f65",
+    "topic": "Behavioral Interview",
+    "score": 70.09,
+    "duration": 21,
+    "timestamp": "2025-12-17T16:50:25.462709",
+    "question": "Tell me about a time you failed and how you handled it.",
+    "detailed_metrics": {
+      "score": 70.09,
+      "facial_confidence": 66.73,
+      "speech_confidence": 85.63,
+      "body_confidence": 45.75,
+      "video_duration": 20.61,
+      "facial_breakdown": {
+        "eye_contact": 90,
+        "facial_tension": 63.97,
+        "head_movement": 71.18,
+        "smile_authenticity": 50,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 61.11,
+        "clarity_score": 100,
+        "pace_score": 100
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 25,
+        "body_openness": 90,
+        "shoulder_alignment": 90
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 34,
+        "blink_count": 31,
+        "blinks_per_minute": 1860
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 26
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.69,
+        "speech_contribution": 34.25,
+        "body_contribution": 9.15
+      },
+      "performance": {
+        "processing_time_seconds": 78.79,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
+  },
+  "07582ee8-e5a6-4519-bd62-f6ab5160d020": {
+    "id": "07582ee8-e5a6-4519-bd62-f6ab5160d020",
+    "user_id": "04857672-f68d-4a18-a84a-bd2701641f65",
+    "topic": "Behavioral Interview",
+    "score": 70.09,
+    "duration": 24,
+    "timestamp": "2025-12-17T16:56:12.251837",
+    "question": "Tell me about a time you went above and beyond for a customer.",
+    "detailed_metrics": {
+      "score": 70.09,
+      "facial_confidence": 66.73,
+      "speech_confidence": 85.63,
+      "body_confidence": 45.75,
+      "video_duration": 23.71,
+      "facial_breakdown": {
+        "eye_contact": 90,
+        "facial_tension": 63.97,
+        "head_movement": 71.18,
+        "smile_authenticity": 50,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 61.11,
+        "clarity_score": 100,
+        "pace_score": 100
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 25,
+        "body_openness": 90,
+        "shoulder_alignment": 90
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 34,
+        "blink_count": 31,
+        "blinks_per_minute": 1860
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 26
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.69,
+        "speech_contribution": 34.25,
+        "body_contribution": 9.15
+      },
+      "performance": {
+        "processing_time_seconds": 26.53,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
   }
 }
