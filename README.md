@@ -51,22 +51,26 @@
 ## ✨ Features
 
 ### 🎥 **Advanced Video Analysis**
+
 - **Facial Confidence**: Eye contact detection, facial tension analysis, smile authenticity
 - **Speech Confidence**: Hesitation detection, tone analysis, clarity metrics, pace evaluation
 - **Body Language**: Posture analysis, gesture recognition, body openness assessment
 
 ### 🎯 **Interview Types**
+
 - **HR Interviews**: Behavioral questions, company culture, role-specific scenarios
 - **Technical Interviews**: Coding problems, system design, technical concepts
 - **Behavioral Interviews**: STAR method questions, leadership scenarios, problem-solving
 
 ### 📊 **Comprehensive Analytics**
+
 - **Real-Time Scoring**: Live confidence percentage during recording
 - **Detailed Breakdowns**: Individual scores for facial, speech, and body confidence
 - **Session History**: Track progress over time with detailed metrics
 - **Performance Insights**: Identify areas for improvement
 
 ### 🎨 **Modern UI/UX**
+
 - **LeetCode-Style Layout**: Professional, distraction-free interface
 - **Question Selection**: Choose from curated question banks
 - **Responsive Design**: Works seamlessly on desktop and mobile
@@ -78,32 +82,36 @@
 ### 🏠 **Main Interface**
 
 #### Login & Dashboard
+
 ![Login Page](./screenshots/01-login-page.png)
-*Clean login interface with ConfidenceLab branding*
+_Clean login interface with ConfidenceLab branding_
 
 ![Main Dashboard](./screenshots/02-main-dashboard.png)
-*User dashboard with statistics and interview options*
+_User dashboard with statistics and interview options_
 
 ### 🎥 **Interview Practice**
 
 #### Interview Interface
+
 ![Interview Ready](./screenshots/03-interview-ready.png)
-*LeetCode-style interview interface with question sidebar*
+_LeetCode-style interview interface with question sidebar_
 
 ![Analysis Results](./screenshots/04-analysis-results.png)
-*Confidence analysis with detailed breakdowns*
+_Confidence analysis with detailed breakdowns_
 
 ### 📊 **Session Management**
 
 #### Session History
+
 ![Session History](./screenshots/05-session-history.png)
-*User's interview session history and details*
+_User's interview session history and details_
 
 ---
 
 ## 🏗️ Architecture
 
 ### 🎨 **Frontend (React + TypeScript)**
+
 ```
 src/
 ├── components/           # React components
@@ -121,6 +129,7 @@ src/
 ```
 
 ### ⚙️ **Backend (FastAPI + Python)**
+
 ```
 backend/
 ├── main.py              # FastAPI application
@@ -132,6 +141,7 @@ backend/
 ```
 
 ### 🗄️ **Data Storage**
+
 ```
 data/
 ├── users.json          # User accounts
@@ -147,43 +157,52 @@ data/
 ## 🛠️ Installation
 
 ### 📋 **Prerequisites**
+
 - **Node.js** 18.0+ and npm
 - **Python** 3.10+
 - **Git** for version control
 
-### 🚀 **Quick Setup**
+### ⚡ **Windows Quick Start**
+
+We provides automated scripts to get you up and running instantly:
+
+1. **First-time Setup:**
+   Double-click `setup_app.bat` to install dependencies and set up the environment.
+
+2. **Launch Application:**
+   Double-click `start_app.bat`. This will automatically start both the backend (Port 8000) and frontend (Port 5173) in separate windows.
+
+### 🐧 **Manual Setup (Mac/Linux)**
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/udaykumar0515/ConfidenceLab.git
    cd ConfidenceLab
    ```
 
 2. **Install Frontend Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Setup Backend Environment**
+
    ```bash
    cd backend
    python -m venv venv
-   
-   # Windows
-   venv\Scripts\activate
-   
-   # macOS/Linux
    source venv/bin/activate
-   
    pip install -r requirements.txt
    ```
 
 4. **Start the Application**
+
    ```bash
    # Terminal 1: Start Backend
    cd backend
    uvicorn main:app --reload --host 0.0.0.0 --port 8000
-   
+
    # Terminal 2: Start Frontend
    npm run dev
    ```
@@ -250,6 +269,7 @@ file: [video_file]
 ```
 
 **Response:**
+
 ```json
 {
   "score": 85.5,
@@ -293,17 +313,15 @@ Authorization: Bearer {token}
 ## 🧪 Testing
 
 ### 🎯 **Frontend Testing**
+
 ```bash
 npm run test
 npm run test:coverage
 ```
 
 ### ⚙️ **Backend Testing**
-```bash
-cd backend
-python -m pytest tests/
-python -m pytest --cov=backend tests/
-```
+
+_Coming soon..._
 
 ### 🔍 **Manual Testing Checklist**
 
@@ -372,8 +390,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **H. Uday Kumar** - [GitHub](https://github.com/udaykumar0515)
 - **S. Muskan** - [GitHub](https://github.com/muski630346)
-- **D. Vijay Baskar** 
-- **M. Abhinai** 
+- **D. Vijay Baskar**
+- **M. Abhinai**
 
 </div>
 
@@ -386,4 +404,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **MediaPipe** for body language detection
 - **React** and **FastAPI** communities for excellent documentation
 - **OpenAI** for inspiration in AI-powered applications
-
