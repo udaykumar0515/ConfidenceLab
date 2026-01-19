@@ -81,3 +81,5 @@ backend/utils/__pycache__/
 # Screenshots to ignore
 screenshots/06-signup-page.png
 screenshots/07-interview_recording.png
+PROJECT_FULL_DOC.md
+PROJECT_FULL_DOC.pdf
