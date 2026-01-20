@@ -321,7 +321,11 @@ npm run test:coverage
 
 ### ⚙️ **Backend Testing**
 
-_Coming soon..._
+```bash
+cd backend
+pytest tests/ -v
+pytest --cov=. tests/
+```
 
 ### 🔍 **Manual Testing Checklist**
 
@@ -366,13 +370,9 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 6. Push to the branch: `git push origin feature/amazing-feature`
 7. Open a Pull Request
 
-### 🐛 **Bug Reports**
+### 🐛 **Bug Reports & Feature Requests**
 
-Please use our [Issue Template](.github/ISSUE_TEMPLATE/bug_report.md) when reporting bugs.
-
-### 💡 **Feature Requests**
-
-Use our [Feature Request Template](.github/ISSUE_TEMPLATE/feature_request.md) for new ideas.
+Found a bug or have a feature idea? Please open an issue on our [GitHub Issues](https://github.com/udaykumar0515/ConfidenceLab/issues) page with a clear description.
 
 ---
 
