@@ -1,15 +1,17 @@
 @echo off
 echo Setting up ConfidenceLab...
 
-echo Installing Frontend Dependencies...
+echo Installing Frontend dependencies...
 call npm install
 
-echo Setting up Backend...
+echo Creating Python virtual environment with Python 3.10...
 cd backend
-python -m venv venv
+py -3.10 -m venv venv
+echo Installing Python dependencies - this may take 10-20 minutes...
 call venv\Scripts\activate
 pip install -r requirements.txt
+call venv\Scripts\deactivate.bat
 cd ..
 
-echo Setup complete! You can now run start_app.bat
+echo Setup complete! Run start_app.bat to launch the app.
 pause

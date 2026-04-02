@@ -1,0 +1,55 @@
+{
+    "a69ebf43347ec4de764baeb0732b7586af3cb911b9d448dc75f4bb2e8014f212": {
+        "score": 70.09,
+        "facial_confidence": 66.73,
+        "speech_confidence": 85.63,
+        "body_confidence": 45.75,
+        "video_duration": 25.95,
+        "facial_breakdown": {
+            "eye_contact": 90.0,
+            "facial_tension": 63.97,
+            "head_movement": 71.18,
+            "smile_authenticity": 50.0,
+            "blink_rate": 0
+        },
+        "speech_breakdown": {
+            "hesitation_score": 91,
+            "tone_score": 61.11,
+            "clarity_score": 100,
+            "pace_score": 100
+        },
+        "body_breakdown": {
+            "posture": 20.0,
+            "hand_gestures": 25.0,
+            "body_openness": 90.0,
+            "shoulder_alignment": 90.0
+        },
+        "facial_metrics": {
+            "total_frames_analyzed": 34,
+            "blink_count": 31,
+            "blinks_per_minute": 1860.0,
+            "deepface_available": true
+        },
+        "speech_metrics": {
+            "filler_words": 0,
+            "pauses": 3,
+            "repetitions": 0
+        },
+        "body_metrics": {
+            "total_frames_analyzed": 26
+        },
+        "overall_breakdown": {
+            "facial_weight": 0.4,
+            "speech_weight": 0.4,
+            "body_weight": 0.2,
+            "facial_contribution": 26.69,
+            "speech_contribution": 34.25,
+            "body_contribution": 9.15
+        },
+        "performance": {
+            "processing_time_seconds": 44.13,
+            "parallel_processing": true,
+            "models_cached": true
+        }
+    }
+}

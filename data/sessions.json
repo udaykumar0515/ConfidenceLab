@@ -547,5 +547,253 @@
         "models_cached": true
       }
     }
+  },
+  "56a791ec-7fe4-4e43-adba-770c203669ab": {
+    "id": "56a791ec-7fe4-4e43-adba-770c203669ab",
+    "user_id": "e5476b28-3a22-4d4d-9052-100e8f7a2592",
+    "topic": "Technical Interview",
+    "score": 70.09,
+    "duration": 25,
+    "timestamp": "2026-04-02T22:10:24.659137",
+    "question": "Explain what happens when you type a URL in your browser.",
+    "detailed_metrics": {
+      "score": 70.09,
+      "facial_confidence": 66.73,
+      "speech_confidence": 85.63,
+      "body_confidence": 45.75,
+      "video_duration": 24.82,
+      "facial_breakdown": {
+        "eye_contact": 90,
+        "facial_tension": 63.97,
+        "head_movement": 71.18,
+        "smile_authenticity": 50,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 61.11,
+        "clarity_score": 100,
+        "pace_score": 100
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 25,
+        "body_openness": 90,
+        "shoulder_alignment": 90
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 34,
+        "blink_count": 31,
+        "blinks_per_minute": 1860,
+        "deepface_available": true
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 26
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.69,
+        "speech_contribution": 34.25,
+        "body_contribution": 9.15
+      },
+      "performance": {
+        "processing_time_seconds": 86.99,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
+  },
+  "f8a9f341-caae-473b-bc86-6e807ce7f186": {
+    "id": "f8a9f341-caae-473b-bc86-6e807ce7f186",
+    "user_id": "e5476b28-3a22-4d4d-9052-100e8f7a2592",
+    "topic": "Technical Interview",
+    "score": 70.09,
+    "duration": 26,
+    "timestamp": "2026-04-02T22:15:59.765627",
+    "question": "Explain the difference between HTTP and HTTPS.",
+    "detailed_metrics": {
+      "score": 70.09,
+      "facial_confidence": 66.73,
+      "speech_confidence": 85.63,
+      "body_confidence": 45.75,
+      "video_duration": 25.95,
+      "facial_breakdown": {
+        "eye_contact": 90,
+        "facial_tension": 63.97,
+        "head_movement": 71.18,
+        "smile_authenticity": 50,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 61.11,
+        "clarity_score": 100,
+        "pace_score": 100
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 25,
+        "body_openness": 90,
+        "shoulder_alignment": 90
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 34,
+        "blink_count": 31,
+        "blinks_per_minute": 1860,
+        "deepface_available": true
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 26
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.69,
+        "speech_contribution": 34.25,
+        "body_contribution": 9.15
+      },
+      "performance": {
+        "processing_time_seconds": 44.13,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
+  },
+  "2e38f2cf-ca9f-4dcc-ab2a-b46a2606678d": {
+    "id": "2e38f2cf-ca9f-4dcc-ab2a-b46a2606678d",
+    "user_id": "e5476b28-3a22-4d4d-9052-100e8f7a2592",
+    "topic": "Technical Interview",
+    "score": 70.09,
+    "duration": 26,
+    "timestamp": "2026-04-02T22:16:49.232506",
+    "question": "What is the time complexity of binary search?",
+    "detailed_metrics": {
+      "score": 70.09,
+      "facial_confidence": 66.73,
+      "speech_confidence": 85.63,
+      "body_confidence": 45.75,
+      "video_duration": 25.95,
+      "facial_breakdown": {
+        "eye_contact": 90,
+        "facial_tension": 63.97,
+        "head_movement": 71.18,
+        "smile_authenticity": 50,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 61.11,
+        "clarity_score": 100,
+        "pace_score": 100
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 25,
+        "body_openness": 90,
+        "shoulder_alignment": 90
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 34,
+        "blink_count": 31,
+        "blinks_per_minute": 1860,
+        "deepface_available": true
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 26
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.69,
+        "speech_contribution": 34.25,
+        "body_contribution": 9.15
+      },
+      "performance": {
+        "processing_time_seconds": 44.13,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
+  },
+  "a346eefd-5de7-4071-b43a-bd518fb6d8a2": {
+    "id": "a346eefd-5de7-4071-b43a-bd518fb6d8a2",
+    "user_id": "e5476b28-3a22-4d4d-9052-100e8f7a2592",
+    "topic": "Technical Interview",
+    "score": 70.09,
+    "duration": 26,
+    "timestamp": "2026-04-02T22:18:35.242294",
+    "question": "Explain the concept of RESTful APIs.",
+    "detailed_metrics": {
+      "score": 70.09,
+      "facial_confidence": 66.73,
+      "speech_confidence": 85.63,
+      "body_confidence": 45.75,
+      "video_duration": 25.95,
+      "facial_breakdown": {
+        "eye_contact": 90,
+        "facial_tension": 63.97,
+        "head_movement": 71.18,
+        "smile_authenticity": 50,
+        "blink_rate": 0
+      },
+      "speech_breakdown": {
+        "hesitation_score": 91,
+        "tone_score": 61.11,
+        "clarity_score": 100,
+        "pace_score": 100
+      },
+      "body_breakdown": {
+        "posture": 20,
+        "hand_gestures": 25,
+        "body_openness": 90,
+        "shoulder_alignment": 90
+      },
+      "facial_metrics": {
+        "total_frames_analyzed": 34,
+        "blink_count": 31,
+        "blinks_per_minute": 1860,
+        "deepface_available": true
+      },
+      "speech_metrics": {
+        "filler_words": 0,
+        "pauses": 3,
+        "repetitions": 0
+      },
+      "body_metrics": {
+        "total_frames_analyzed": 26
+      },
+      "overall_breakdown": {
+        "facial_weight": 0.4,
+        "speech_weight": 0.4,
+        "body_weight": 0.2,
+        "facial_contribution": 26.69,
+        "speech_contribution": 34.25,
+        "body_contribution": 9.15
+      },
+      "performance": {
+        "processing_time_seconds": 44.13,
+        "parallel_processing": true,
+        "models_cached": true
+      }
+    }
   }
 }

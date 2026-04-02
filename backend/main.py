@@ -5,9 +5,29 @@ from typing import Optional, Dict, Any
 import tempfile
 import shutil
 import os
+import hashlib
 from utils.analyze import final_confidence_score
 from utils.user_manager import create_user, authenticate_user, get_user_by_id, add_session, get_user_sessions, get_user_stats
 import json
+
+# Get project root directory (one level up from backend)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CACHE_FILE = os.path.join(PROJECT_ROOT, "data", "video_cache.json")
+
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        try:
+            with open(CACHE_FILE, "r") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+def save_cache(cache_data):
+    # Ensure the data directory exists
+    os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
+    with open(CACHE_FILE, "w") as f:
+        json.dump(cache_data, f, indent=4)
 
 # Server startup information
 
@@ -100,17 +120,40 @@ async def analyze(file: UploadFile = File(...)):
     original_filename = file.filename or "video"
     file_extension = os.path.splitext(original_filename)[1] or ".mp4"
     
-    # Save uploaded video temporarily with original extension
+    # Save uploaded video temporarily and compute hash
+    hasher = hashlib.sha256()
     with tempfile.NamedTemporaryFile(delete=False, suffix=file_extension) as tmp:
-        shutil.copyfileobj(file.file, tmp)
+        while chunk := await file.read(8192 * 1024):  # Read in 8MB chunks
+            hasher.update(chunk)
+            tmp.write(chunk)
         tmp_path = tmp.name
     
     # Ensure file is closed before processing
     file.file.close()
 
+    file_hash = hasher.hexdigest()
+    cache = load_cache()
+    
+    if file_hash in cache:
+        # Clean up temp file since we have cached result
+        try:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+        except Exception:
+            pass
+        print(f"Returning cached result for hash {file_hash[:8]}...")
+        return cache[file_hash]
+
     try:
+        print(f"Computing new result for hash {file_hash[:8]}...")
         # Direct function call
         result = final_confidence_score(tmp_path)
+        
+        # Save cache if analysis was successful
+        if isinstance(result, dict) and "error" not in result:
+            cache[file_hash] = result
+            save_cache(cache)
+            
         return result
 
     except Exception as e:

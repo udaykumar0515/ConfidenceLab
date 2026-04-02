@@ -23,6 +23,11 @@
     "email": "udaykumarhaibathi@gmail.com",
     "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
     "created_at": "2025-12-28T18:56:41.097739",
-    "sessions": []
+    "sessions": [
+      "56a791ec-7fe4-4e43-adba-770c203669ab",
+      "f8a9f341-caae-473b-bc86-6e807ce7f186",
+      "2e38f2cf-ca9f-4dcc-ab2a-b46a2606678d",
+      "a346eefd-5de7-4071-b43a-bd518fb6d8a2"
+    ]
   }
 }
